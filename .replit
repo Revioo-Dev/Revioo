@@ -1,5 +1,21 @@
+modules = ["nodejs-20"]
 [agent]
 expertMode = true
 
 [nix]
 channel = "stable-25_05"
+
+[workflows]
+
+[[workflows.workflow]]
+name = "Run App"
+mode = "sequential"
+author = 62163520
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "pnpm install && pnpm dev"
+
+[[ports]]
+localPort = 3000
+externalPort = 80
