@@ -1,10 +1,14 @@
 interface BusinessPageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
-export default function BusinessPage({ params }: BusinessPageProps) {
+export default async function BusinessPage({
+  params,
+}: BusinessPageProps) {
+  const { slug } = await params;
+
   return (
     <main className="min-h-screen flex items-center justify-center px-6">
       <div className="w-full max-w-2xl rounded-3xl border border-gray-800 bg-gray-900/50 p-8 backdrop-blur">
@@ -16,7 +20,7 @@ export default function BusinessPage({ params }: BusinessPageProps) {
           </h1>
 
           <p className="mt-2 text-gray-400">
-            Business Slug: {params.slug}
+            Business Slug: {slug}
           </p>
 
           <div className="mt-8 grid w-full gap-4">
