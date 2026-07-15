@@ -1,15 +1,26 @@
 "use client";
 
 import { useState } from "react";
+import { supabase } from "@/lib/supabase/client";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  function handleLogin(e: React.FormEvent) {
+  async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
 
-    alert("Supabase login will be connected in the next module.");
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    if (error) {
+      alert(error.message);
+    } else {
+      alert("Login successful!");
+      window.location.href = "/create-business";
+    }
   }
 
   return (
@@ -52,6 +63,8 @@ export default function LoginPage() {
             padding: "12px",
             borderRadius: "10px",
             border: "1px solid #333",
+            color: "#000",
+            backgroundColor: "#fff",
           }}
           required
         />
@@ -65,6 +78,8 @@ export default function LoginPage() {
             padding: "12px",
             borderRadius: "10px",
             border: "1px solid #333",
+            color: "#000",
+            backgroundColor: "#fff",
           }}
           required
         />
