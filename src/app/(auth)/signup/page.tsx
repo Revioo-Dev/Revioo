@@ -8,8 +8,6 @@ export default function SignupPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  import { supabase } from "@/lib/supabase/client";
-
 async function handleSignup(e: React.FormEvent) {
   e.preventDefault();
 
@@ -97,24 +95,30 @@ async function handleSignup(e: React.FormEvent) {
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          style={{ padding: "12px", borderRadius: "10px", border: "1px solid #333" }}
+          style={{
+  padding: "12px",
+  borderRadius: "10px",
+  border: "1px solid #333",
+  color: "#000",
+  backgroundColor: "#fff",
+}}
           required
         />
 
         <button
-          type="submit"
-          style={{
-            padding: "12px",
-            borderRadius: "10px",
-            border: "none",
-            cursor: "pointer",
-            background: "#7C3AED",
-            color: "#fff",
-            fontWeight: "bold",
-          }}
-        >
-          Create Account
-        </button>
+  type="submit"
+  style={{
+    padding: "12px",
+    borderRadius: "10px",
+    border: "none",
+    cursor: "pointer",
+    background: "#7C3AED",
+    color: "#fff",
+    fontWeight: "bold",
+  }}
+>
+  Create Account
+</button>
       </form>
 
       <div
