@@ -18,8 +18,6 @@ export default function CreateBusinessPage() {
   const [googleReviewLink, setGoogleReviewLink] = useState("");
   const [facebookLink, setFacebookLink] = useState("");
 
-  async function handleSubmit...
-
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setLoading(true);
