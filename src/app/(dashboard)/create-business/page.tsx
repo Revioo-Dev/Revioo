@@ -7,6 +7,19 @@ import { useState } from "react";
 export default function CreateBusinessPage() {
   const [loading, setLoading] = useState(false);
 
+  const [businessName, setBusinessName] = useState("");
+  const [category, setCategory] = useState("");
+  const [description, setDescription] = useState("");
+  const [address, setAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [phone, setPhone] = useState("");
+  const [whatsapp, setWhatsapp] = useState("");
+  const [website, setWebsite] = useState("");
+  const [googleReviewLink, setGoogleReviewLink] = useState("");
+  const [facebookLink, setFacebookLink] = useState("");
+
+  async function handleSubmit...
+
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setLoading(true);
