@@ -38,11 +38,13 @@ export default function CreateBusinessPage() {
         <h1 className="text-3xl font-bold">Create Your Business</h1>
 
         <input
-          type="text"
-          placeholder="Business Name"
-          required
-          className="w-full rounded-lg border border-gray-700 bg-gray-800 p-3"
-        />
+  type="text"
+  placeholder="Business Name"
+  value={businessName}
+  onChange={(e) => setBusinessName(e.target.value)}
+  required
+  className="w-full rounded-lg border border-gray-700 bg-gray-800 p-3"
+/>
 
         <input
           type="text"
