@@ -14,11 +14,13 @@ export default function DashboardPage() {
 
       if (!user) return;
 
+      console.log("Logged in user:", user.id);
+
       const { data, error } = await supabase
         .from("businesses")
         .select("*")
         .eq("owner_id", user.id)
-        .single();
+        .maybeSingle();
 
       if (error) {
         console.log(error.message);
@@ -50,9 +52,29 @@ export default function DashboardPage() {
           {business.business_name}
         </h2>
 
-        <p>Category: {business.category}</p>
-        <p>City: {business.city}</p>
-        <p>Phone: {business.phone}</p>
+        <p className="mt-2">
+          Category: {business.category}
+        </p>
+
+        <p>
+          Description: {business.description}
+        </p>
+
+        <p>
+          Address: {business.address}
+        </p>
+
+        <p>
+          City: {business.city}
+        </p>
+
+        <p>
+          Phone: {business.phone}
+        </p>
+
+        <p>
+          WhatsApp: {business.whatsapp}
+        </p>
 
         <p className="mt-4">
           Google Review Link:
@@ -61,9 +83,23 @@ export default function DashboardPage() {
         <a
           href={business.google_review_link}
           target="_blank"
+          rel="noopener noreferrer"
           className="text-blue-500"
         >
           Open Review Link
+        </a>
+
+        <p className="mt-4">
+          Facebook Link:
+        </p>
+
+        <a
+          href={business.facebook_link}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-blue-500"
+        >
+          Open Facebook Page
         </a>
       </div>
     </main>
