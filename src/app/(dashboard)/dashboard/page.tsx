@@ -23,11 +23,18 @@ export default function DashboardPage() {
         .maybeSingle();
 
       if (error) {
-        console.log(error.message);
-        return;
-      }
+  alert("Error: " + error.message);
+  return;
+}
 
-      setBusiness(data);
+console.log("Business data:", data);
+
+if (!data) {
+  alert("No business found for this user");
+  return;
+}
+
+setBusiness(data);
     }
 
     getBusiness();
