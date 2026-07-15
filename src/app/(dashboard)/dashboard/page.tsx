@@ -2,6 +2,7 @@
 
 import { supabase } from "@/lib/supabase/client";
 import { useEffect, useState } from "react";
+import { QRCodeSVG } from "qrcode.react";
 
 export default function DashboardPage() {
   const [business, setBusiness] = useState<any>(null);
@@ -14,28 +15,19 @@ export default function DashboardPage() {
 
       if (!user) return;
 
-      console.log("Logged in user:", user.id);
-
       const { data, error } = await supabase
-  .from("businesses")
-  .select("*")
-  .eq("owner_id", user.id)
-  .order("created_at", { ascending: false })
-  .limit(1);
+        .from("businesses")
+        .select("*")
+        .eq("owner_id", user.id)
+        .order("created_at", { ascending: false })
+        .limit(1);
 
       if (error) {
-  alert("Error: " + error.message);
-  return;
-}
+        console.log(error.message);
+        return;
+      }
 
-console.log("Business data:", data);
-
-if (!data) {
-  alert("No business found for this user");
-  return;
-}
-
-setBusiness(data?.[0]);
+      setBusiness(data?.[0]);
     }
 
     getBusiness();
@@ -43,73 +35,190 @@ setBusiness(data?.[0]);
 
   if (!business) {
     return (
-      <main className="min-h-screen flex items-center justify-center">
-        <h1>Loading business...</h1>
+      <main className="min-h-screen flex items-center justify-center bg-black text-white">
+        <h1 className="text-xl">
+          Loading business...
+        </h1>
       </main>
     );
   }
 
   return (
-    <main className="min-h-screen p-6">
-      <h1 className="text-3xl font-bold">
-        Revioo Dashboard
-      </h1>
+    <main className="min-h-screen bg-black p-6 text-white">
 
-      <div className="mt-6 rounded-xl border p-6">
-        <h2 className="text-2xl font-bold">
-          {business.business_name}
-        </h2>
+      <div className="max-w-5xl mx-auto">
 
-        <p className="mt-2">
-          Category: {business.category}
-        </p>
+        <h1 className="text-4xl font-bold mb-8">
+          Revioo Dashboard
+        </h1>
 
-        <p>
-          Description: {business.description}
-        </p>
 
-        <p>
-          Address: {business.address}
-        </p>
+        <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-purple-900/40 via-black to-black backdrop-blur-xl p-8 shadow-2xl">
 
-        <p>
-          City: {business.city}
-        </p>
 
-        <p>
-          Phone: {business.phone}
-        </p>
+          {/* Glossy Business Name Background */}
 
-        <p>
-          WhatsApp: {business.whatsapp}
-        </p>
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <h2 className="text-[100px] font-black uppercase tracking-widest text-white/5 rotate-[-15deg] whitespace-nowrap">
+              {business.business_name}
+            </h2>
+          </div>
 
-        <p className="mt-4">
-          Google Review Link:
-        </p>
 
-        <a
-          href={business.google_review_link}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-blue-500"
-        >
-          Open Review Link
-        </a>
+          {/* Glow */}
 
-        <p className="mt-4">
-          Facebook Link:
-        </p>
+          <div className="absolute -top-20 -right-20 h-72 w-72 rounded-full bg-purple-500/20 blur-3xl">
+          </div>
 
-        <a
-          href={business.facebook_link}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-blue-500"
-        >
-          Open Facebook Page
-        </a>
+
+          <div className="relative z-10">
+
+
+            {/* Business Header */}
+
+            <div className="flex items-center gap-5 mb-8">
+
+              <div className="h-20 w-20 rounded-3xl bg-purple-600 flex items-center justify-center text-3xl font-black shadow-lg">
+                {business.business_name?.charAt(0)}
+              </div>
+
+
+              <div>
+                <h2 className="text-3xl font-bold">
+                  {business.business_name}
+                </h2>
+
+                <p className="text-gray-400 mt-1">
+                  {business.category}
+                </p>
+              </div>
+
+            </div>
+
+
+
+            {/* Details */}
+
+            <div className="grid md:grid-cols-2 gap-4">
+
+              <div className="rounded-2xl bg-white/5 border border-white/10 p-5">
+                <p className="text-gray-400 text-sm">
+                  Location
+                </p>
+                <p className="mt-2">
+                  📍 {business.city}
+                </p>
+              </div>
+
+
+              <div className="rounded-2xl bg-white/5 border border-white/10 p-5">
+                <p className="text-gray-400 text-sm">
+                  Phone
+                </p>
+                <p className="mt-2">
+                  📞 {business.phone}
+                </p>
+              </div>
+
+
+              <div className="rounded-2xl bg-white/5 border border-white/10 p-5">
+                <p className="text-gray-400 text-sm">
+                  WhatsApp
+                </p>
+                <p className="mt-2">
+                  💬 {business.whatsapp}
+                </p>
+              </div>
+
+
+              <div className="rounded-2xl bg-white/5 border border-white/10 p-5">
+                <p className="text-gray-400 text-sm">
+                  Address
+                </p>
+                <p className="mt-2">
+                  {business.address}
+                </p>
+              </div>
+
+            </div>
+
+
+
+            {/* Google Review + QR Section */}
+
+            <div className="mt-8 rounded-3xl bg-purple-600/20 border border-purple-500/30 p-6">
+
+
+              <h3 className="text-2xl font-bold">
+                Google Reviews
+              </h3>
+
+
+              <p className="text-gray-300 mt-2 mb-5">
+                Customers can scan this QR code or use the button to leave a review.
+              </p>
+
+
+              <a
+                href={business.google_review_link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block rounded-xl bg-purple-600 px-6 py-3 font-semibold hover:bg-purple-700 transition"
+              >
+                Open Review Link
+              </a>
+
+
+
+              {/* QR Code */}
+
+              <div className="mt-8 flex flex-col items-center">
+
+                <div className="rounded-3xl bg-white p-5 shadow-xl">
+
+                  <QRCodeSVG
+                    value={business.google_review_link || ""}
+                    size={200}
+                  />
+
+                </div>
+
+
+                <p className="mt-4 text-sm text-gray-300 text-center">
+                  Scan to leave a Google Review
+                </p>
+
+              </div>
+
+
+            </div>
+
+
+
+            {/* Facebook */}
+
+            {business.facebook_link && (
+              <div className="mt-6">
+
+                <a
+                  href={business.facebook_link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-400 hover:underline"
+                >
+                  Open Facebook Page →
+                </a>
+
+              </div>
+            )}
+
+
+          </div>
+
+        </div>
+
       </div>
+
     </main>
   );
 }
