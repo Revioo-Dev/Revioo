@@ -19,7 +19,7 @@ export default function LoginPage() {
       alert(error.message);
     } else {
       alert("Login successful!");
-      window.location.href = "/create-business";
+      window.location.href = "/dashboard";
     }
   }
 
