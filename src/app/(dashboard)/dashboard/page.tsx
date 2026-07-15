@@ -3,10 +3,29 @@
 import { supabase } from "@/lib/supabase/client";
 import { useEffect, useState, useRef } from "react";
 import { QRCodeSVG } from "qrcode.react";
+import { toPng } from "html-to-image";
 
 export default function DashboardPage() {
   const [business, setBusiness] = useState<any>(null);
 
+  const qrCardRef = useRef<HTMLDivElement>(null);
+
+  async function downloadQRCard() {
+  if (!qrCardRef.current) return;
+
+  try {
+    const dataUrl = await toPng(qrCardRef.current);
+
+    const link = document.createElement("a");
+    link.download = `${business.business_name}-review-card.png`;
+    link.href = dataUrl;
+    link.click();
+
+  } catch (error) {
+    console.log(error);
+    alert("Could not download QR card");
+  }
+}
   useEffect(() => {
     async function getBusiness() {
       const {
@@ -169,29 +188,56 @@ export default function DashboardPage() {
               </a>
 
 
-
-              {/* QR Code */}
-
-              <div className="mt-8 flex flex-col items-center">
-
-                <div className="rounded-3xl bg-white p-5 shadow-xl">
-
-                  <QRCodeSVG
-                    value={business.google_review_link || ""}
-                    size={200}
-                  />
-
-                </div>
-
-
-                <p className="mt-4 text-sm text-gray-300 text-center">
-                  Scan to leave a Google Review
-                </p>
-
-              </div>
-
-
             </div>
+
+            <div
+  ref={qrCardRef}
+  className="mt-8 w-full max-w-sm rounded-3xl bg-white p-8 text-black text-center shadow-2xl"
+>
+
+  <div className="mx-auto mb-4 h-16 w-16 rounded-2xl bg-purple-600 flex items-center justify-center text-3xl font-bold text-white">
+    {business.business_name?.charAt(0)}
+  </div>
+
+
+  <h2 className="text-2xl font-bold">
+    {business.business_name}
+  </h2>
+
+
+  <p className="mt-1 text-gray-600">
+    {business.category}
+  </p>
+
+
+  <div className="mt-6 flex justify-center">
+
+    <QRCodeSVG
+      value={business.google_review_link || ""}
+      size={200}
+    />
+
+  </div>
+
+
+  <p className="mt-5 text-sm font-semibold">
+    Scan to leave us a Google Review
+  </p>
+
+
+  <p className="mt-2 text-xs text-gray-500">
+    Powered by Revioo
+  </p>
+
+</div>
+
+
+<button
+  onClick={downloadQRCard}
+  className="mt-5 rounded-xl bg-purple-600 px-6 py-3 font-semibold text-white"
+>
+  Download Review Card
+</button>
 
 
 
