@@ -1,17 +1,35 @@
 "use client";
 
 import { useState } from "react";
+import { supabase } from "@/lib/supabase/client";
 
 export default function SignupPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  function handleSignup(e: React.FormEvent) {
-    e.preventDefault();
+  import { supabase } from "@/lib/supabase/client";
 
-    alert("Supabase signup will be connected in the next module.");
+async function handleSignup(e: React.FormEvent) {
+  e.preventDefault();
+
+  const { error } = await supabase.auth.signUp({
+    email,
+    password,
+    options: {
+      data: {
+        name,
+        role: "business_owner",
+      },
+    },
+  });
+
+  if (error) {
+    alert(error.message);
+  } else {
+    alert("Account created successfully! Please check your email.");
   }
+}
 
   return (
     <div>
@@ -49,7 +67,13 @@ export default function SignupPage() {
           placeholder="Full Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          style={{ padding: "12px", borderRadius: "10px", border: "1px solid #333" }}
+          style={{
+  padding: "12px",
+  borderRadius: "10px",
+  border: "1px solid #333",
+  color: "#000",
+  backgroundColor: "#fff",
+}}
           required
         />
 
@@ -58,7 +82,13 @@ export default function SignupPage() {
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          style={{ padding: "12px", borderRadius: "10px", border: "1px solid #333" }}
+          style={{
+  padding: "12px",
+  borderRadius: "10px",
+  border: "1px solid #333",
+  color: "#000",
+  backgroundColor: "#fff",
+}}
           required
         />
 
