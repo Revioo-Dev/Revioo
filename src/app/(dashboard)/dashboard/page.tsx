@@ -17,10 +17,11 @@ export default function DashboardPage() {
       console.log("Logged in user:", user.id);
 
       const { data, error } = await supabase
-        .from("businesses")
-        .select("*")
-        .eq("owner_id", user.id)
-        .maybeSingle();
+  .from("businesses")
+  .select("*")
+  .eq("owner_id", user.id)
+  .order("created_at", { ascending: false })
+  .limit(1);
 
       if (error) {
   alert("Error: " + error.message);
@@ -34,7 +35,7 @@ if (!data) {
   return;
 }
 
-setBusiness(data);
+setBusiness(data?.[0]);
     }
 
     getBusiness();
