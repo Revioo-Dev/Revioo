@@ -19,16 +19,41 @@ export default function CreateBusinessPage() {
   const [facebookLink, setFacebookLink] = useState("");
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    setLoading(true);
+  e.preventDefault();
+  setLoading(true);
 
-    // Supabase save logic will be added next
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
-    alert("Business registration will be connected to Supabase in the next step.");
-
+  if (!user) {
+    alert("Please login first.");
     setLoading(false);
+    return;
   }
 
+  const { error } = await supabase.from("businesses").insert({
+    owner_id: user.id,
+    business_name: businessName,
+    category,
+    description,
+    address,
+    city,
+    phone,
+    whatsapp,
+    website,
+    google_review_link: googleReviewLink,
+    facebook_link: facebookLink,
+  });
+
+  if (error) {
+    alert(error.message);
+  } else {
+    alert("Business created successfully!");
+  }
+
+  setLoading(false);
+}
   return (
     <main className="min-h-screen flex items-center justify-center p-6">
       <form
