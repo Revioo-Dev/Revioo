@@ -1,5 +1,7 @@
 "use client";
 
+import { createBrowserClient } from "@supabase/ssr";
+
 import { useState } from "react";
 
 export default function CreateBusinessPage() {
