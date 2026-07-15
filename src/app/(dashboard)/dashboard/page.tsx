@@ -46,7 +46,7 @@ export default function DashboardPage() {
         return;
       }
 
-      setBusiness(data?.[0]);
+      setBusiness(data?.[0] ?? null);
     }
 
     getBusiness();
