@@ -30,12 +30,12 @@ export default function Footer() {
   {[MessageCircle].map((Icon, i) => (
     <a
       key={i}
-      href="https://wa.me/+923353727314" // Replace with your WhatsApp number
+      href="https://wa.me/923353727314"
       target="_blank"
       rel="noopener noreferrer"
-      className="w-9 h-9 rounded-lg glass flex items-center justify-center text-zinc-500 hover:text-green-500 hover:border-green-500/40 transition-all"
+      className="w-10 h-10 rounded-lg glass flex items-center justify-center text-zinc-500 hover:text-green-500 hover:bg-green-500/10 hover:border-green-500/40 transition-all"
     >
-      <Icon size={18} />
+      <Icon size={22} />
     </a>
   ))}
 </div>
