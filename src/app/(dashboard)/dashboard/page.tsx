@@ -77,11 +77,18 @@ export default function DashboardPage() {
 
           {/* Glossy Business Name Background */}
 
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <h2 className="text-[100px] font-black uppercase tracking-widest text-white/5 rotate-[-15deg] whitespace-nowrap">
-              {business.business_name}
-            </h2>
-          </div>
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+  <div className="absolute inset-0 -rotate-[25deg] opacity-5 flex flex-wrap content-center justify-center gap-x-8 gap-y-6 p-6">
+    {Array.from({ length: 36 }).map((_, i) => (
+      <span
+        key={i}
+        className="text-lg font-bold uppercase whitespace-nowrap text-white"
+      >
+        {business.business_name}
+      </span>
+    ))}
+  </div>
+</div>
 
 
           {/* Glow */}
