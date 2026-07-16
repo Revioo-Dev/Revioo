@@ -268,27 +268,15 @@ export default function DashboardPage() {
                       </p>
 
                       <div className="mt-12 flex justify-center">
-  <div className="relative rounded-3xl border-4 border-purple-100 bg-white p-8 shadow-xl">
-
-    {/* Main Google Review QR */}
+  <div className="rounded-3xl border-4 border-purple-100 bg-white p-8 shadow-xl">
     <QRCodeSVG
       value={business.google_review_link || ""}
       size={330}
     />
-
-    {/* Small Catalogue QR */}
-    <div className="absolute bottom-4 right-4 rounded-xl bg-white p-2 shadow-lg border">
-      <QRCodeSVG
-        value={`${window.location.origin}/b/${business.slug}`}
-        size={70}
-      />
-      <p className="mt-1 text-center text-[10px] font-semibold">
-        Menu
-      </p>
-    </div>
-
   </div>
 </div>
+
+    
 
                       <div className="mt-10 flex items-center justify-center gap-4">
                         <div className="h-14 w-14 rounded-full bg-white flex items-center justify-center text-3xl">
@@ -313,6 +301,20 @@ export default function DashboardPage() {
                     </div>
                   </div>
 
+                  {/* Catalogue QR */}
+<div className="absolute bottom-64 right-10 z-20">
+  <div className="rounded-2xl bg-white p-3 shadow-2xl border border-purple-200">
+    <QRCodeSVG
+      value={`${window.location.origin}/b/${business.slug}`}
+      size={90}
+    />
+
+    <p className="mt-2 text-center text-xs font-bold uppercase tracking-wide text-purple-600">
+      View Catalogue
+    </p>
+  </div>
+</div>
+                  
                   {/* 3D Wave Footer — soft single curve, deep purple gradient,
                       centered glow + embossed REVIOO wordmark */}
                   <div className="absolute bottom-0 left-0 w-full h-56">
