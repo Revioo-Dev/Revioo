@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Whatsapp, Linkedin } from "lucide-react";
 
 const footerLinks = {
-  PRODUCTS: ["Pricing", "Roadmap"]
+  PRODUCTS: ["Pricing", "Roadmap"],
   COMPANY: ["About"],
   LEGAL: ["Privacy", "Terms"],
 };
@@ -27,7 +27,7 @@ export default function Footer() {
             </p>
 
             <div className="flex items-center gap-4 mt-6">
-              {[whatsapp].map((Icon, i) => (
+              {[Whatsapp].map((Icon, i) => (
                 <a
                   key={i}
                   href="#"
@@ -42,7 +42,7 @@ export default function Footer() {
           {/* Links */}
           {Object.entries(footerLinks).map(([category, links]) => (
             <div key={category}>
-              <h4 className="text-xs font-semibold text-zinc-400 uppercase tracking-widest mb-4">
+              <h4 className="text-lg font-bold text-zinc-300 uppercase tracking-wide mb-4">
                 {category}
               </h4>
 
