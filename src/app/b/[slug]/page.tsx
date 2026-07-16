@@ -70,8 +70,8 @@ const backgroundImage =
   <Image
     src="/logos/revioo-logo.PNG"
     alt="Revioo"
-    width={260}
-    height={70}
+    width={150}
+    height={40}
     priority
     className="h-auto w-auto"
   />
