@@ -256,10 +256,27 @@ export default function DashboardPage() {
                       </p>
 
                       <div className="mt-12 flex justify-center">
-                        <div className="rounded-3xl border-4 border-purple-100 bg-white p-8 shadow-xl">
-                          <QRCodeSVG value={business.google_review_link || ""} size={330} />
-                        </div>
-                      </div>
+  <div className="relative rounded-3xl border-4 border-purple-100 bg-white p-8 shadow-xl">
+
+    {/* Main Google Review QR */}
+    <QRCodeSVG
+      value={business.google_review_link || ""}
+      size={330}
+    />
+
+    {/* Small Catalogue QR */}
+    <div className="absolute bottom-4 right-4 rounded-xl bg-white p-2 shadow-lg border">
+      <QRCodeSVG
+        value={`${window.location.origin}/b/${business.slug}`}
+        size={70}
+      />
+      <p className="mt-1 text-center text-[10px] font-semibold">
+        Menu
+      </p>
+    </div>
+
+  </div>
+</div>
 
                       <div className="mt-10 flex items-center justify-center gap-4">
                         <div className="h-14 w-14 rounded-full bg-white flex items-center justify-center text-3xl">
