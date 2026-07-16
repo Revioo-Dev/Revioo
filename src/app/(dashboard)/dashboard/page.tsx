@@ -26,11 +26,9 @@ export default function DashboardPage() {
       pixelRatio: 1,
       backgroundColor: "#f3e8ff",
       style: {
-        width: `${targetWidth}px`,
-        height: `${targetHeight}px`,
-        transform: "none",
-        transformOrigin: "top left",
-      },
+  transform: "none",
+  transformOrigin: "top left",
+},
     });
 
     const link = document.createElement("a");
@@ -241,13 +239,13 @@ export default function DashboardPage() {
 
             {/* Downloadable / On-Screen QR Review Card */}
             {/* Outer wrapper: colored glow shadow so the card looks like it's floating, like a printed standee */}
-            <div className="mt-8 w-full max-w-md">
+            <div className="mt-8 w-full max-w-[1023px]">
               <div
                 className="rounded-[42px] p-[3px] bg-gradient-to-br from-purple-300 via-white to-purple-400 shadow-[0_25px_60px_-15px_rgba(124,58,237,0.5)]"
               >
                 <div
   ref={qrCardRef}
-  className="relative aspect-[1023/1537] w-full overflow-hidden rounded-[40px] bg-gradient-to-b from-purple-200 via-purple-100 to-purple-50"
+  className="relative aspect-[1023/1537] w-full overflow-hidden rounded-[40px] bg-gradient-to-b from-purple-200 via-purple-100 to-purple-50 min-h-0"
 >
   {/* City Map Background */}
                   <img
@@ -385,6 +383,6 @@ export default function DashboardPage() {
 
       </div>
 
-    </main>
+        </main>
   );
 }
