@@ -1,10 +1,10 @@
 import Link from "next/link";
-import { Zap, Twitter, Github, Linkedin } from "lucide-react";
+import { Whatsapp, Linkedin } from "lucide-react";
 
 const footerLinks = {
-  Product: ["Features", "Pricing", "Changelog", "Roadmap"],
-  Company: ["About", "Blog", "Careers", "Press"],
-  Legal: ["Privacy", "Terms", "Security", "Cookies"],
+  PRODUCTS: ["Pricing", "Roadmap"]
+  COMPANY: ["About"],
+  LEGAL: ["Privacy", "Terms"],
 };
 
 export default function Footer() {
@@ -23,11 +23,11 @@ export default function Footer() {
 
             <p className="text-zinc-500 text-sm max-w-xs leading-relaxed">
               The AI-powered review platform that turns authentic customer
-              feedback into your biggest competitive advantage.
+              feedback into your biggest competitive advantage📈
             </p>
 
             <div className="flex items-center gap-4 mt-6">
-              {[Twitter, Github, Linkedin].map((Icon, i) => (
+              {[whatsapp].map((Icon, i) => (
                 <a
                   key={i}
                   href="#"
