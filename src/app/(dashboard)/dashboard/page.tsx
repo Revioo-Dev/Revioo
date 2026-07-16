@@ -373,36 +373,23 @@ export default function DashboardPage() {
   </svg>
 
 
-  <div className="absolute inset-0 flex flex-col items-center justify-end pb-9">
+ <div className="absolute inset-0 flex flex-col items-center justify-end pb-9">
 
-    <div className="absolute bottom-[92px] h-32 w-32 rounded-full bg-purple-300/60 blur-3xl" />
+  <div className="absolute bottom-[92px] h-32 w-32 rounded-full bg-purple-300/60 blur-3xl" />
 
-       <div className="relative flex h-16 w-16 items-center justify-center rounded-full bg-white shadow-[0_0_45px_rgba(216,180,254,.95)]">
-      <span className="text-3xl font-black text-purple-700">
-        R
-      </span>
-    </div>
-
-    {/* 3D / embossed wordmark, centered */}
-    <h2
-      className="mt-3 text-3xl font-black tracking-[0.3em] text-white text-center"
-      style={{
-        textShadow:
-          "0 1px 0 rgba(255,255,255,.35), 0 2px 3px rgba(0,0,0,.45), 0 6px 12px rgba(76,29,149,.6)",
-      }}
-    >
-      REVIOO
-    </h2>
-
-    <p className="mt-1.5 text-xs tracking-[0.3em] uppercase text-purple-100/90">
-      Build Trust • Get Discovered
-    </p>
-
-    <p className="mt-2 text-xs tracking-wide text-purple-100/80">
-      ✆ Contact us: 03353727314
-    </p>
-
+  <div className="relative flex h-16 w-16 items-center justify-center rounded-full bg-white shadow-[0_0_45px_rgba(216,180,254,.95)]">
+    <span className="text-3xl font-black text-purple-700">
+      R
+    </span>
   </div>
+
+  <h2>REVIOO</h2>
+
+  <p>Build Trust • Get Discovered</p>
+
+  <p>✆ Contact us: 03353727314</p>
+
+</div>
 </div>
 
 
