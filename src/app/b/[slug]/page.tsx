@@ -48,12 +48,26 @@ console.log("BUSINESS DATA:", JSON.stringify(business));
   return (
     <div className="min-h-screen bg-gray-50">
 
-      <h1 className={`${montserrat.className} text-3xl text-red-500 font-semibold`}>
-  REVIOO ~ Build Trust • Get Discovered
-</h1>
-      <h2 className={`${lora.className} text-2xl text-black font-bold`}>
-  {business?.business_name || "NO BUSINESS FOUND"}
-</h2>
+      <div className="px-4 pt-3">
+  <h1
+    className={`
+      ${montserrat.className}
+      inline-block
+      text-sm
+      font-semibold
+      tracking-widest
+      bg-gradient-to-r
+      from-purple-300
+      via-violet-200
+      to-fuchsia-300
+      bg-clip-text
+      text-transparent
+      drop-shadow-[0_0_14px_rgba(216,180,254,0.9)]
+    `}
+  >
+    REVIOO ~ Build Trust • Get Discovered
+  </h1>
+</div>
 
       {/* Header */}
       <header className="bg-white border-b border-gray-200 shadow-sm">
