@@ -37,9 +37,12 @@ console.log("BUSINESS DATA:", business);
   return (
     <div className="min-h-screen bg-gray-50">
 
-      <p className="text-black">
-  {JSON.stringify(business)}
-</p>
+      <h1 className="text-3xl text-red-500">
+  REAL CATALOGUE PAGE
+</h1>
+      <h2 className="text-2xl text-black">
+  {business?.business_name || "NO BUSINESS FOUND"}
+</h2>
 
       {/* Header */}
       <header className="bg-white border-b border-gray-200 shadow-sm">
