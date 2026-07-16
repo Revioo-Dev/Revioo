@@ -279,7 +279,7 @@ export default function DashboardPage() {
 
 {/* Catalogue QR */}
 <div className="absolute bottom-40 right-10 z-20">
-  <div className="rounded-2xl bg-white p-3 shadow-2xl border border-purple-200">
+  <div className="rounded-2xl bg-white p-3 border border-purple-200">
     <QRCodeSVG
       value={`${window.location.origin}/b/${business.slug}`}
       size={90}
