@@ -274,28 +274,6 @@ return (
 </div>
 
 
-  <div className="mt-6 flex justify-center">
-
-    <QRCodeSVG
-      value={business.google_review_link || ""}
-      size={200}
-    />
-
-  </div>
-
-
-  <p className="mt-5 text-sm font-semibold">
-    Scan to leave us a Google Review
-  </p>
-
-
-  <p className="mt-2 text-xs text-gray-500">
-    Powered by Revioo
-  </p>
-
-</div>
-
-
 <button
   onClick={downloadQRCard}
   className="mt-5 rounded-xl bg-purple-600 px-6 py-3 font-semibold text-white"
