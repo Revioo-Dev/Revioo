@@ -67,25 +67,14 @@ const backgroundImage =
 >
 
       <div className="px-4 pt-3">
-  <h1
-    className={`
-  ${montserrat.className}
-  inline-block
-  text-xl
-  md:text-2xl
-  font-semibold
-  tracking-widest
-  bg-gradient-to-r
-  from-purple-300
-  via-violet-200
-  to-fuchsia-300
-  bg-clip-text
-  text-transparent
-  drop-shadow-[0_0_14px_rgba(216,180,254,0.9)]
-`}
-  >
-    REVIOO ~ Build Trust • Get Discovered
-  </h1>
+  <Image
+    src="/logos/revioo-logo.PNG"
+    alt="Revioo"
+    width={260}
+    height={70}
+    priority
+    className="h-auto w-auto"
+  />
 </div>
 
       {/* Header */}
