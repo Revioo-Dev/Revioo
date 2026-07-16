@@ -26,18 +26,16 @@ export default function Footer() {
               feedback into your biggest competitive advantage📈
             </p>
 
-            <div className="flex items-center gap-4 mt-6">
-  {[MessageCircle].map((Icon, i) => (
-    <a
-      key={i}
-      href="https://wa.me/923353727314"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="w-10 h-10 rounded-lg glass flex items-center justify-center text-zinc-500 hover:text-green-500 hover:bg-green-500/10 hover:border-green-500/40 transition-all"
-    >
-      <Icon size={22} />
-    </a>
-  ))}
+            <div className="flex items-center gap-3 mt-6">
+  <a
+    href="https://wa.me/923353727314"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="flex items-center gap-2 text-zinc-400 hover:text-green-500 transition-all"
+  >
+    <MessageCircle size={22} />
+    <span className="text-sm font-medium">+92 335 3727314</span>
+  </a>
 </div>
           </div>
 
