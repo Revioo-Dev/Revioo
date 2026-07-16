@@ -5,7 +5,7 @@ import { useEffect, useState, useRef } from "react";
 import { QRCodeSVG } from "qrcode.react";
 import { toPng } from "html-to-image";
 import { Lora } from "next/font/google";
-import CatalogueManager from "@/components/CatalogueManager";
+import CatalogueManager from "@src/app/(dashboard)/dashboard/components/CatalogueManager";
 
 
 const lora = Lora({ subsets: ["latin"], weight: "variable" });
