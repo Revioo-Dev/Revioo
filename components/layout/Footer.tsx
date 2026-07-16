@@ -15,9 +15,9 @@ export default function Footer() {
           {/* Brand */}
           <div className="md:col-span-2">
             <Link href="/" className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-600 to-purple-500 flex items-center justify-center">
-                <Zap size={16} className="text-white" />
-              </div>
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-600 to-purple-500 flex items-center justify-center text-white font-bold">
+  R
+</div>
               <span className="text-xl font-bold text-white">Revioo</span>
             </Link>
 
