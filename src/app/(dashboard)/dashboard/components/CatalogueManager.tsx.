@@ -102,9 +102,28 @@ export default function CatalogueManager({ businessId }: { businessId: string })
     }
   }
 
-  async function handleDelete(id: string) {
+  async function handleDelete(id: string, imageUrl: string | null) {
     const confirmed = confirm("Delete this item?");
     if (!confirmed) return;
+
+    // Remove the image from storage too, if one was uploaded.
+    if (imageUrl) {
+      try {
+        const marker = "catalogue-images/";
+        const markerIndex = imageUrl.indexOf(marker);
+        if (markerIndex !== -1) {
+          const filePath = imageUrl.substring(markerIndex + marker.length);
+          const { error: storageError } = await supabase.storage
+            .from("catalogue-images")
+            .remove([filePath]);
+          if (storageError) {
+            console.log("Could not delete image from storage:", storageError.message);
+          }
+        }
+      } catch (err) {
+        console.log("Error parsing/deleting image:", err);
+      }
+    }
 
     const { error } = await supabase.from("catalogue_items").delete().eq("id", id);
     if (error) {
@@ -221,7 +240,7 @@ export default function CatalogueManager({ businessId }: { businessId: string })
                   <p className="text-sm text-gray-400 mt-1">{item.description}</p>
                 )}
                 <button
-                  onClick={() => handleDelete(item.id)}
+                  onClick={() => handleDelete(item.id, item.image_url)}
                   className="mt-3 text-xs text-red-400 hover:underline"
                 >
                   Delete
