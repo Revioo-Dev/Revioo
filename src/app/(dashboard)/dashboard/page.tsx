@@ -305,48 +305,114 @@ export default function DashboardPage() {
 </div> {/* closes flex-1 text-center */}
 </div> {/* closes relative z-10 flex h-full flex-col */}
 
-{/* 3D Wave Footer */}
-<div className="absolute bottom-0 left-0 w-full h-65">
-                    <svg
-  viewBox="0 0 1023 300"
-                      preserveAspectRatio="none"
-                      className="absolute bottom-0 w-full h-full"
-                    >
-                      <defs>
-                        <linearGradient id="waveMain" x1="0%" y1="0%" x2="100%" y2="100%">
-                          <stop offset="0%" stopColor="#3B0A6B" />
-                          <stop offset="55%" stopColor="#6D28D9" />
-                          <stop offset="100%" stopColor="#9333EA" />
-                        </linearGradient>
-                      </defs>
+{/* 3D Crystal Glossy Wave Footer */}
+<div className="absolute bottom-0 left-0 w-full h-70 overflow-hidden">
 
-                      {/* Single soft curve */}
-                      <path
-                        d="M0,70
-C260,-10 500,170 1023,50
-                           L1023,220
-                           L0,220Z"
-                        fill="url(#waveMain)"
-                      />
+  <svg
+    viewBox="0 0 1023 220"
+    preserveAspectRatio="none"
+    className="absolute bottom-0 w-full h-full"
+  >
+    <defs>
 
-                      {/* Soft top highlight along the curve */}
-                      <path
-                        d="M0,110
-                           C260,10 500,190 1023,90"
-                        stroke="rgba(255,255,255,.3)"
-                        strokeWidth="4"
-                        fill="none"
-                      />
-                    </svg>
+      {/* Crystal purple gradient */}
+      <linearGradient id="waveCrystal" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#2A064F" />
+        <stop offset="35%" stopColor="#6D28D9" />
+        <stop offset="65%" stopColor="#A855F7" />
+        <stop offset="100%" stopColor="#D946EF" />
+      </linearGradient>
 
-                    <div className="absolute inset-0 flex flex-col items-center justify-end pb-9">
-                      {/* Glow behind logo */}
-                      <div className="absolute bottom-[92px] h-28 w-28 rounded-full bg-purple-300/50 blur-2xl" />
+      {/* Glass shine */}
+      <linearGradient id="glassShine" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.45" />
+        <stop offset="35%" stopColor="#FFFFFF" stopOpacity="0.12" />
+        <stop offset="100%" stopColor="#FFFFFF" stopOpacity="0" />
+      </linearGradient>
 
-                      {/* Logo badge */}
-                      <div className="relative flex h-16 w-16 items-center justify-center rounded-full bg-white shadow-[0_0_35px_rgba(216,180,254,.9)]">
-                        <span className="text-3xl font-black text-purple-700">R</span>
-                      </div>
+      {/* Glow */}
+      <filter id="waveGlow">
+        <feGaussianBlur stdDeviation="10" />
+      </filter>
+
+    </defs>
+
+
+    {/* Neon glow behind wave */}
+    <path
+      d="
+      M0,85
+      C260,-15 500,180 1023,45
+      L1023,220
+      L0,220Z"
+      fill="#C084FC"
+      opacity="0.35"
+      filter="url(#waveGlow)"
+    />
+
+
+    {/* Main liquid crystal wave */}
+    <path
+      d="
+      M0,75
+      C260,-20 500,175 1023,45
+      L1023,220
+      L0,220Z"
+      fill="url(#waveCrystal)"
+    />
+
+
+    {/* Glass reflection surface */}
+    <path
+      d="
+      M0,75
+      C260,-20 500,175 1023,45
+      C650,120 350,55 0,130Z"
+      fill="url(#glassShine)"
+    />
+
+
+    {/* Bottom depth wave */}
+    <path
+      d="
+      M0,155
+      C260,80 600,230 1023,120
+      L1023,220
+      L0,220Z"
+      fill="#4C1D95"
+      opacity="0.55"
+    />
+
+
+    {/* White glossy edge */}
+    <path
+      d="
+      M0,95
+      C260,5 500,190 1023,65"
+      stroke="rgba(255,255,255,0.45)"
+      strokeWidth="5"
+      fill="none"
+    />
+
+  </svg>
+
+
+  <div className="absolute inset-0 flex flex-col items-center justify-end pb-9">
+
+    {/* Logo glow */}
+    <div className="absolute bottom-[92px] h-32 w-32 rounded-full bg-purple-300/60 blur-3xl" />
+
+
+    {/* Logo badge */}
+    <div className="relative flex h-16 w-16 items-center justify-center rounded-full bg-white shadow-[0_0_45px_rgba(216,180,254,.95)]">
+      <span className="text-3xl font-black text-purple-700">
+        R
+      </span>
+    </div>
+
+  </div>
+
+</div>
 
                       {/* 3D / embossed wordmark, centered */}
                       <h2
