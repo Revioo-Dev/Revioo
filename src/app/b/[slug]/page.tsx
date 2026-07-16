@@ -58,29 +58,31 @@ const backgroundImage =
     <div
   className="relative min-h-screen overflow-hidden"
   style={{
-    backgroundImage: `linear-gradient(rgba(255,255,255,0.90), rgba(255,255,255,0.90)), url(${backgroundImage})`,
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    backgroundAttachment: "fixed",
-  }}
+  backgroundImage: `linear-gradient(rgba(255,255,255,0.35), rgba(255,255,255,0.35)), url(${backgroundImage})`,
+  backgroundSize: "cover",
+  backgroundPosition: "center",
+  backgroundRepeat: "no-repeat",
+  backgroundAttachment: "fixed",
+}}
 >
 
       <div className="px-4 pt-3">
   <h1
     className={`
-      ${montserrat.className}
-      inline-block
-      text-sm
-      font-semibold
-      tracking-widest
-      bg-gradient-to-r
-      from-purple-300
-      via-violet-200
-      to-fuchsia-300
-      bg-clip-text
-      text-transparent
-      drop-shadow-[0_0_14px_rgba(216,180,254,0.9)]
-    `}
+  ${montserrat.className}
+  inline-block
+  text-lg
+  md:text-2xl
+  font-semibold
+  tracking-widest
+  bg-gradient-to-r
+  from-purple-300
+  via-violet-200
+  to-fuchsia-300
+  bg-clip-text
+  text-transparent
+  drop-shadow-[0_0_14px_rgba(216,180,254,0.9)]
+`}
   >
     REVIOO ~ Build Trust • Get Discovered
   </h1>
