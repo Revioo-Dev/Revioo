@@ -23,8 +23,13 @@ export default function DashboardPage() {
 
       const dataUrl = await toPng(node, {
   cacheBust: true,
-  pixelRatio: 2,
+  pixelRatio: 3,
   backgroundColor: "#ffffff",
+  width: node.scrollWidth,
+  height: node.scrollHeight,
+  style: {
+    transform: "none",
+  },
 });
 
       const link = document.createElement("a");
@@ -241,8 +246,7 @@ export default function DashboardPage() {
               >
                 <div
                   ref={qrCardRef}
-                  className="relative w-full overflow-hidden rounded-[40px] bg-gradient-to-b from-purple-100 via-purple-50 to-white"
-                >
+className="relative w-full overflow-hidden rounded-[40px] bg-gradient-to-b from-purple-100 via-purple-50 to-white min-h-[650px]"
                   {/* City Map Background */}
                   <img
                     src={backgroundImage}
