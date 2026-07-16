@@ -33,16 +33,13 @@ export default function DashboardPage() {
     }
   }
 
-
   useEffect(() => {
     async function getBusiness() {
-
       const {
         data: { user },
       } = await supabase.auth.getUser();
 
       if (!user) return;
-
 
       const { data, error } = await supabase
         .from("businesses")
@@ -51,201 +48,104 @@ export default function DashboardPage() {
         .order("created_at", { ascending: false })
         .limit(1);
 
-
       if (error) {
         console.log(error.message);
         return;
       }
 
-
       setBusiness(data?.[0] ?? null);
-
     }
 
-
     getBusiness();
-
   }, []);
-
 
   if (!business) {
     return (
       <main className="min-h-screen flex items-center justify-center bg-black text-white">
-        <h1 className="text-xl">
-          Loading business...
-        </h1>
+        <h1 className="text-xl">Loading business...</h1>
       </main>
     );
   }
 
-
-  const cityBackgrounds: Record<string,string> = {
+  const cityBackgrounds: Record<string, string> = {
     mirpurkhas: "/backgrounds/mirpurkhas-map.png",
     karachi: "/backgrounds/karachi-map.png",
   };
-
 
   const backgroundImage =
     cityBackgrounds[business.city?.toLowerCase()] ||
     "/backgrounds/mirpurkhas-map.png";
 
-
   return (
     <main className="min-h-screen bg-black p-6 text-white">
-
-
       <div className="max-w-5xl mx-auto">
-
-
-        <h1 className="text-4xl font-bold mb-8">
-          Revioo Dashboard
-        </h1>
-
+        <h1 className="text-4xl font-bold mb-8">Revioo Dashboard</h1>
 
         <div
           className="relative overflow-hidden rounded-3xl border border-white/10 p-8 shadow-2xl"
           style={{
-            backgroundImage:
-              `linear-gradient(rgba(10,10,10,0.85), rgba(10,10,10,0.85)), url(${backgroundImage})`,
-            backgroundSize:"cover",
-            backgroundPosition:"center",
+            backgroundImage: `linear-gradient(rgba(10,10,10,0.85), rgba(10,10,10,0.85)), url(${backgroundImage})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
           }}
         >
-
-
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
-
             <img
               src={backgroundImage}
               alt=""
               className="absolute inset-0 w-full h-full object-cover opacity-25 saturate-150 contrast-125"
             />
-
-
             <div className="absolute -inset-y-20 -left-1/2 w-1/3 rotate-12 bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-
-
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-
               <div className="relative flex flex-col items-center">
-
                 <div className="h-8 w-8 rounded-full bg-gradient-to-br from-purple-300 via-purple-500 to-purple-700 shadow-lg flex items-center justify-center ring-4 ring-white/20">
-
-                  <div className="h-2.5 w-2.5 rounded-full bg-white"/>
-
+                  <div className="h-2.5 w-2.5 rounded-full bg-white" />
                 </div>
-
               </div>
-
             </div>
-
-
           </div>
 
-
-          <div className="absolute -top-20 -right-20 h-72 w-72 rounded-full bg-purple-500/20 blur-3xl"/>
-
+          <div className="absolute -top-20 -right-20 h-72 w-72 rounded-full bg-purple-500/20 blur-3xl" />
 
           <div className="relative z-10">
-
-
             <div className="flex items-center gap-5 mb-8">
-
-
               <div className="h-20 w-20 rounded-3xl bg-purple-600 flex items-center justify-center text-3xl font-black">
-
                 {business.business_name?.charAt(0)}
-
               </div>
-
-
               <div>
-
-                <h2 className="text-3xl font-bold">
-                  {business.business_name}
-                </h2>
-
-
-                <p className="text-gray-400 mt-1">
-                  {business.category}
-                </p>
-
+                <h2 className="text-3xl font-bold">{business.business_name}</h2>
+                <p className="text-gray-400 mt-1">{business.category}</p>
               </div>
-
-
             </div>
 
-
             <div className="grid md:grid-cols-2 gap-4">
-
-
               <div className="rounded-2xl bg-white/5 border border-white/10 p-5">
-
-                <p className="text-gray-400 text-sm">
-                  Location
-                </p>
-
-                <p className="mt-2">
-                  📍 {business.city}
-                </p>
-
+                <p className="text-gray-400 text-sm">Location</p>
+                <p className="mt-2">📍 {business.city}</p>
               </div>
 
-
               <div className="rounded-2xl bg-white/5 border border-white/10 p-5">
-
-                <p className="text-gray-400 text-sm">
-                  Phone
-                </p>
-
-                <p className="mt-2">
-                  📞 {business.phone}
-                </p>
-
+                <p className="text-gray-400 text-sm">Phone</p>
+                <p className="mt-2">📞 {business.phone}</p>
               </div>
 
-
               <div className="rounded-2xl bg-white/5 border border-white/10 p-5">
-
-                <p className="text-gray-400 text-sm">
-                  WhatsApp
-                </p>
-
-                <p className="mt-2">
-                  💬 {business.whatsapp}
-                </p>
-
+                <p className="text-gray-400 text-sm">WhatsApp</p>
+                <p className="mt-2">💬 {business.whatsapp}</p>
               </div>
 
-
               <div className="rounded-2xl bg-white/5 border border-white/10 p-5">
-
-                <p className="text-gray-400 text-sm">
-                  Address
-                </p>
-
-                <p className="mt-2">
-                  {business.address}
-                </p>
-
+                <p className="text-gray-400 text-sm">Address</p>
+                <p className="mt-2">{business.address}</p>
               </div>
-
-
             </div>
 
             {/* Google Review + QR Section */}
-
-                        <div className="mt-8 rounded-3xl bg-purple-600/20 border border-purple-500/30 p-6">
-
-              <h3 className="text-2xl font-bold">
-                Google Reviews
-              </h3>
-
+            <div className="mt-8 rounded-3xl bg-purple-600/20 border border-purple-500/30 p-6">
+              <h3 className="text-2xl font-bold">Google Reviews</h3>
               <p className="text-gray-300 mt-2 mb-5">
                 Customers can scan this QR code or use the button to leave a review.
               </p>
-
-
               <a
                 href={business.google_review_link}
                 target="_blank"
@@ -254,312 +154,172 @@ export default function DashboardPage() {
               >
                 Open Review Link
               </a>
-
-
             </div>
 
-
-
             {/* QR REVIEW CARD */}
-
             <div className="mt-8 flex justify-center">
-
-
               <div className="rounded-[42px] p-[3px] bg-gradient-to-br from-purple-300 via-white to-purple-400 shadow-[0_25px_60px_-15px_rgba(124,58,237,0.5)]">
-
-
                 <div
                   ref={qrCardRef}
                   className="relative w-[1023px] h-[1537px] overflow-hidden rounded-[40px] bg-gradient-to-b from-purple-200 via-purple-100 to-purple-50"
                 >
-
-
                   <img
                     src={backgroundImage}
                     alt=""
                     className="absolute inset-0 w-full h-full object-cover opacity-10"
                   />
-
-
-                  <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-white/70 to-transparent"/>
-
-
+                  <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-white/70 to-transparent" />
 
                   <div className="relative z-10 flex h-full flex-col px-20 pt-16 pb-10">
-
-
                     <div className="flex items-start justify-between">
-
-
                       <div className="h-24 w-24 rounded-3xl bg-purple-600 flex items-center justify-center text-5xl font-bold text-white shadow-lg">
-
                         {business.business_name?.charAt(0)}
-
                       </div>
-
-
 
                       <div className="flex flex-col items-center text-purple-600">
-
-                        <span className="text-3xl">
-                          📍
-                        </span>
-
-                        <span className="text-xl font-bold uppercase">
-                          {business.city}
-                        </span>
-
+                        <span className="text-3xl">📍</span>
+                        <span className="text-xl font-bold uppercase">{business.city}</span>
                       </div>
-
-
                     </div>
-
-
-
 
                     <div className="flex-1 text-center">
-
-
                       <h2 className="mt-12 text-5xl font-bold text-black">
-
                         {business.business_name}
-
                       </h2>
 
-
-
-
                       <div className="mt-8 inline-flex items-center gap-3 rounded-full border border-purple-200 bg-purple-50 px-8 py-4">
-
-
-                        <span className="text-2xl">
-                          🏪
-                        </span>
-
-
+                        <span className="text-2xl">🏪</span>
                         <span className="text-2xl font-semibold text-purple-600">
-
                           {business.category}
-
                         </span>
-
-
                       </div>
-
-
-
 
                       <div className="mt-10 flex items-center justify-center gap-5">
-
-                        <span className="h-px w-24 bg-purple-200"/>
-
-                        <span className="text-3xl text-purple-500">
-                          ♥
-                        </span>
-
-                        <span className="h-px w-24 bg-purple-200"/>
-
+                        <span className="h-px w-24 bg-purple-200" />
+                        <span className="text-3xl text-purple-500">♥</span>
+                        <span className="h-px w-24 bg-purple-200" />
                       </div>
-
-
-
 
                       <p className="mt-8 text-xl font-semibold tracking-widest text-gray-500 uppercase">
-
                         Your feedback helps us grow
-
                       </p>
 
-
-
-
-
                       <div className="mt-12 flex justify-center">
-
-
                         <div className="rounded-3xl border-4 border-purple-100 bg-white p-8 shadow-xl">
-
-
-                          <QRCodeSVG
-                            value={business.google_review_link || ""}
-                            size={280}
-                          />
-
-
+                          <QRCodeSVG value={business.google_review_link || ""} size={280} />
                         </div>
-
-
                       </div>
-
-
-
-
 
                       <div className="mt-10 flex items-center justify-center gap-4">
-
-
                         <div className="h-14 w-14 rounded-full bg-white flex items-center justify-center text-3xl">
-
                           🔍
-
                         </div>
-
-
-
                         <p className="text-2xl text-gray-700">
-
                           Scan to review us on{" "}
-
-                          <span className="font-bold text-purple-600">
-                            Google
-                          </span>
-
-
+                          <span className="font-bold text-purple-600">Google</span>
                         </p>
-
-
-
                       </div>
-
-
-
                     </div>
-
-
-
                   </div>
 
-
-
-
-
                   {/* Premium 3D Wave Footer */}
-<div className="absolute bottom-0 left-0 w-full h-56">
+                  <div className="absolute bottom-0 left-0 w-full h-56">
+                    {/* Back Wave */}
+                    <svg
+                      viewBox="0 0 1023 220"
+                      preserveAspectRatio="none"
+                      className="absolute bottom-0 w-full h-full"
+                    >
+                      <defs>
+                        <linearGradient id="waveBack" x1="0%" y1="0%" x2="100%" y2="100%">
+                          <stop offset="0%" stopColor="#4C1D95" />
+                          <stop offset="100%" stopColor="#6D28D9" />
+                        </linearGradient>
 
-  {/* Back Wave */}
-  <svg
-    viewBox="0 0 1023 220"
-    preserveAspectRatio="none"
-    className="absolute bottom-0 w-full h-full"
-  >
-    <defs>
-      <linearGradient id="waveBack" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#4C1D95"/>
-        <stop offset="100%" stopColor="#6D28D9"/>
-      </linearGradient>
+                        <linearGradient id="waveFront" x1="0%" y1="0%" x2="100%" y2="100%">
+                          <stop offset="0%" stopColor="#7C3AED" />
+                          <stop offset="100%" stopColor="#A855F7" />
+                        </linearGradient>
+                      </defs>
 
-      <linearGradient id="waveFront" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#7C3AED"/>
-        <stop offset="100%" stopColor="#A855F7"/>
-      </linearGradient>
-    </defs>
+                      {/* Rear Wave */}
+                      <path
+                        d="M0,120
+                           C170,40 330,190 512,105
+                           C700,20 860,170 1023,95
+                           L1023,220
+                           L0,220Z"
+                        fill="url(#waveBack)"
+                        opacity="0.75"
+                      />
 
-    {/* Rear Wave */}
-    <path
-      d="M0,120
-         C170,40 330,190 512,105
-         C700,20 860,170 1023,95
-         L1023,220
-         L0,220Z"
-      fill="url(#waveBack)"
-      opacity="0.75"
-    />
+                      {/* Front Wave */}
+                      <path
+                        d="M0,145
+                           C200,70 360,215 512,140
+                           C690,55 860,200 1023,130
+                           L1023,220
+                           L0,220Z"
+                        fill="url(#waveFront)"
+                      />
 
-    {/* Front Wave */}
-    <path
-      d="M0,145
-         C200,70 360,215 512,140
-         C690,55 860,200 1023,130
-         L1023,220
-         L0,220Z"
-      fill="url(#waveFront)"
-    />
+                      {/* Top Highlight */}
+                      <path
+                        d="M0,145
+                           C200,70 360,215 512,140
+                           C690,55 860,200 1023,130"
+                        stroke="rgba(255,255,255,.35)"
+                        strokeWidth="5"
+                        fill="none"
+                      />
+                    </svg>
 
-    {/* Top Highlight */}
-    <path
-      d="M0,145
-         C200,70 360,215 512,140
-         C690,55 860,200 1023,130"
-      stroke="rgba(255,255,255,.35)"
-      strokeWidth="5"
-      fill="none"
-    />
-  </svg>
+                    {/* Logo */}
+                    <div className="absolute inset-0 flex flex-col items-center justify-end pb-10">
+                      {/* Glow */}
+                      <div className="absolute bottom-20 h-36 w-36 rounded-full bg-purple-400/60 blur-3xl"></div>
 
-  {/* Logo */}
-  <div className="absolute inset-0 flex flex-col items-center justify-end pb-10">
+                      {/* Logo Badge */}
+                      <div className="relative flex h-20 w-20 items-center justify-center rounded-full bg-white shadow-[0_0_45px_rgba(168,85,247,.8)]">
+                        <span className="text-4xl font-black text-purple-700">R</span>
+                      </div>
 
-    {/* Glow */}
-    <div className="absolute bottom-20 h-36 w-36 rounded-full bg-purple-400/60 blur-3xl"></div>
+                      {/* Brand */}
+                      <h2 className="mt-4 text-3xl font-black tracking-[0.35em] text-white">
+                        REVIOO
+                      </h2>
 
-    {/* Logo Badge */}
-    <div className="relative flex h-20 w-20 items-center justify-center rounded-full bg-white shadow-[0_0_45px_rgba(168,85,247,.8)]">
-      <span className="text-4xl font-black text-purple-700">
-        R
-      </span>
-    </div>
+                      <p className="mt-2 text-sm tracking-[0.3em] uppercase text-purple-100">
+                        BUILD TRUST • GET DISCOVERED
+                      </p>
+                    </div>
+                  </div>
 
-    {/* Brand */}
-    <h2 className="mt-4 text-3xl font-black tracking-[0.35em] text-white">
-      REVIOO
-    </h2>
+                  <button
+                    onClick={downloadQRCard}
+                    className="mt-5 rounded-xl bg-purple-600 px-6 py-3 font-semibold text-white"
+                  >
+                    Download Review Card
+                  </button>
 
-    <p className="mt-2 text-sm tracking-[0.3em] uppercase text-purple-100">
-      BUILD TRUST • GET DISCOVERED
-    </p>
-
-  </div>
-
-</div>
-
-
-
-
-
-            <button
-              onClick={downloadQRCard}
-              className="mt-5 rounded-xl bg-purple-600 px-6 py-3 font-semibold text-white"
-            >
-              Download Review Card
-            </button>
-
-
-
-
-
-            {business.facebook_link && (
-
-              <div className="mt-6">
-
-                <a
-                  href={business.facebook_link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-400 hover:underline"
-                >
-
-                  Open Facebook Page →
-
-                </a>
-
-
+                  {business.facebook_link && (
+                    <div className="mt-6">
+                      <a
+                        href={business.facebook_link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-400 hover:underline"
+                      >
+                        Open Facebook Page →
+                      </a>
+                    </div>
+                  )}
+                </div>
               </div>
-
-            )}
-
-
-
+            </div>
           </div>
-
-
         </div>
-
-
       </div>
-
-
     </main>
-
   );
-
 }
