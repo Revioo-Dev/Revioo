@@ -7,7 +7,7 @@ const footerLinks = {
   Legal: ["Privacy", "Terms", "Security", "Cookies"],
 };
 
-export function Footer() {
+export default function Footer() {
   return (
     <footer className="border-t border-white/5 mt-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -20,10 +20,12 @@ export function Footer() {
               </div>
               <span className="text-xl font-bold text-white">Revioo</span>
             </Link>
+
             <p className="text-zinc-500 text-sm max-w-xs leading-relaxed">
               The AI-powered review platform that turns authentic customer
               feedback into your biggest competitive advantage.
             </p>
+
             <div className="flex items-center gap-4 mt-6">
               {[Twitter, Github, Linkedin].map((Icon, i) => (
                 <a
@@ -43,6 +45,7 @@ export function Footer() {
               <h4 className="text-xs font-semibold text-zinc-400 uppercase tracking-widest mb-4">
                 {category}
               </h4>
+
               <ul className="space-y-2.5">
                 {links.map((link) => (
                   <li key={link}>
@@ -63,6 +66,7 @@ export function Footer() {
           <p className="text-xs text-zinc-600">
             © {new Date().getFullYear()} Revioo. All rights reserved.
           </p>
+
           <p className="text-xs text-zinc-600">
             Built with ❤️ for businesses that care about trust.
           </p>
