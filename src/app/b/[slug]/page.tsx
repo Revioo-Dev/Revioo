@@ -34,9 +34,18 @@ const business = data as any;
 
 console.log("BUSINESS DATA:", JSON.stringify(business));
 
-  if (!business) {
-    notFound();
-  }
+if (!business) {
+  notFound();
+}
+
+const cityBackgrounds: Record<string, string> = {
+  mirpurkhas: "/backgrounds/mirpurkhas-map.png",
+  karachi: "/backgrounds/karachi-map.png",
+};
+
+const backgroundImage =
+  cityBackgrounds[business.city?.toLowerCase()] ||
+  "/backgrounds/mirpurkhas-map.png";
 
   // Fetch catalogue items
   const { data: items } = await supabase
@@ -46,7 +55,15 @@ console.log("BUSINESS DATA:", JSON.stringify(business));
     .order("created_at", { ascending: false });
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div
+  className="relative min-h-screen overflow-hidden"
+  style={{
+    backgroundImage: `linear-gradient(rgba(255,255,255,0.90), rgba(255,255,255,0.90)), url(${backgroundImage})`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundAttachment: "fixed",
+  }}
+>
 
       <div className="px-4 pt-3">
   <h1
