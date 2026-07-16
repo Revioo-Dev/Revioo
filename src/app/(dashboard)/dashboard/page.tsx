@@ -20,10 +20,10 @@ export default function DashboardPage() {
     const targetHeight = 1537;
 
     const dataUrl = await toPng(node, {
-      cacheBust: true,
-      width: targetWidth,
-      height: targetHeight,
-      pixelRatio: 1,
+  cacheBust: true,
+  canvasWidth: 1023,
+  canvasHeight: 1537,
+  pixelRatio: 1,
       backgroundColor: "#f3e8ff",
       style: {
   transform: "none",
@@ -239,17 +239,18 @@ export default function DashboardPage() {
 
             {/* Downloadable / On-Screen QR Review Card */}
             {/* Outer wrapper: colored glow shadow so the card looks like it's floating, like a printed standee */}
-            <div className="mt-8 w-full max-w-[1023px]">
+            <div className="mt-8 w-full overflow-x-auto">
               <div
                 className="rounded-[42px] p-[3px] bg-gradient-to-br from-purple-300 via-white to-purple-400 shadow-[0_25px_60px_-15px_rgba(124,58,237,0.5)]"
               >
                 <div
   ref={qrCardRef}
-  className="relative aspect-[1023/1537] w-full overflow-hidden rounded-[40px] bg-gradient-to-b from-purple-200 via-purple-100 to-purple-50 min-h-0"
+  className="relative w-[1023px] h-[1537px] overflow-hidden rounded-[40px] bg-gradient-to-b from-purple-200 via-purple-100 to-purple-50"
 >
+  <div className="absolute inset-0">
   {/* City Map Background */}
-                  <img
-                    src={backgroundImage}
+  <img
+    src={backgroundImage}
                     alt=""
                     className="absolute inset-0 w-full h-full object-cover opacity-10 saturate-150 contrast-125"
                   />
@@ -261,7 +262,7 @@ export default function DashboardPage() {
                   {/* Soft top highlight to fake an embossed/glass surface */}
                   <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-white/70 to-transparent pointer-events-none" />
 
-                <div className="relative z-10 flex h-full flex-col px-8 pt-10 pb-4">
+                <div className="relative z-10 flex h-full flex-col scale-[0.82] origin-top-left w-[122%]">
 
                   {/* Header row: logo left, city tag right — no overlap */}
                   <div className="flex items-start justify-between">
@@ -333,7 +334,7 @@ export default function DashboardPage() {
                 <div className="relative mt-4">
                   <svg
                     viewBox="0 0 500 80"
-                    className="w-full h-16 block"
+                    className="w-full h-14 block"
                     preserveAspectRatio="none"
                   >
                     <path d="M0,40 C150,90 350,0 500,40 L500,80 L0,80 Z" fill="#7C3AED" />
@@ -344,6 +345,9 @@ export default function DashboardPage() {
                       <span>Powered by</span>
                     </div>
                     <span className="text-xl tracking-wide leading-tight">𝑹𝑬𝑽𝑰𝑶𝑶</span>
+  </div>
+</div>   {/* close absolute inset-0 */}
+</div>   {/* close qrCardRef */}
                   </div>
                 </div>
               </div>
