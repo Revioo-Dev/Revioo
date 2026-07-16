@@ -224,12 +224,21 @@ export default function DashboardPage() {
                   }}
                 >
                   <img
-                    src={backgroundImage}
-                    alt=""
-                    className="absolute inset-0 w-full h-full object-cover opacity-10"
-                  />
-                  <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-white/70 to-transparent" />
+  src={backgroundImage}
+  alt=""
+  className="absolute inset-0 w-full h-full object-cover opacity-10"
+/>
 
+<div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-white/70 to-transparent" />
+
+{/* Purple Spotlights */}
+<div className="absolute -top-24 -left-24 h-96 w-96 rounded-full bg-purple-500/25 blur-[140px]" />
+
+<div className="absolute top-20 -right-24 h-80 w-80 rounded-full bg-fuchsia-500/20 blur-[120px]" />
+
+<div className="absolute bottom-24 left-1/2 -translate-x-1/2 h-[420px] w-[420px] rounded-full bg-violet-500/20 blur-[150px]" />
+
+<div className="relative z-10 flex h-full flex-col px-20 pt-16 pb-10">
                   <div className="relative z-10 flex h-full flex-col px-20 pt-16 pb-10">
                     <div className="flex items-start justify-between">
                       <div className="h-24 w-24 rounded-3xl bg-purple-600 flex items-center justify-center text-5xl font-bold text-white shadow-lg">
@@ -295,9 +304,9 @@ export default function DashboardPage() {
 </div> {/* closes relative z-10 flex h-full flex-col */}
 
 {/* 3D Wave Footer */}
-<div className="absolute bottom-0 left-0 w-full h-56">
+<div className="absolute bottom-0 left-0 w-full h-65">
                     <svg
-                      viewBox="0 0 1023 220"
+  viewBox="0 0 1023 300"
                       preserveAspectRatio="none"
                       className="absolute bottom-0 w-full h-full"
                     >
@@ -311,8 +320,8 @@ export default function DashboardPage() {
 
                       {/* Single soft curve */}
                       <path
-                        d="M0,110
-                           C260,10 500,190 1023,90
+                        d="M0,70
+C260,-10 500,170 1023,50
                            L1023,220
                            L0,220Z"
                         fill="url(#waveMain)"
