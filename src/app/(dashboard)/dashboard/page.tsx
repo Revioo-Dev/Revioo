@@ -63,13 +63,13 @@ export default function DashboardPage() {
 }
 
 const cityBackgrounds: Record<string, string> = {
-  mirpurkhas: "/images/mirpurkhas-map.png",
-  karachi: "/images/karachi-map.png",
+  mirpurkhas: "/backgrounds/mirpurkhas-map.png",
+  karachi: "/backgrounds/karachi-map.png",
 };
 
 const backgroundImage =
   cityBackgrounds[business.city?.toLowerCase()] ||
-  "/images/default-map.png";
+  "/backgrounds/mirpurkhas-map.png";
 
 return (
   <main className="min-h-screen bg-black p-6 text-white">
