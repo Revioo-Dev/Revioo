@@ -347,4 +347,46 @@ export default function DashboardPage() {
                       <span>⭐</span>
                       <span>Powered by</span>
                     </div>
-                    
+                    <span className="text-xl tracking-wide leading-tight">𝑹𝑬𝑽𝑰𝑶𝑶</span>
+                  </div>
+                </div>
+              </div>
+              </div>
+            </div>
+
+            <button
+              onClick={downloadQRCard}
+              className="mt-5 rounded-xl bg-purple-600 px-6 py-3 font-semibold text-white"
+            >
+              Download Review Card
+            </button>
+
+
+
+            {/* Facebook */}
+
+            {business.facebook_link && (
+              <div className="mt-6">
+
+                <a
+                  href={business.facebook_link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-400 hover:underline"
+                >
+                  Open Facebook Page →
+                </a>
+
+              </div>
+            )}
+
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </main>
+  );
+}
