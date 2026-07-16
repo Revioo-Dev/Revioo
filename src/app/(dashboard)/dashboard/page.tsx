@@ -11,40 +11,40 @@ export default function DashboardPage() {
   const qrCardRef = useRef<HTMLDivElement>(null);
 
   async function downloadQRCard() {
-  if (!qrCardRef.current) return;
+    if (!qrCardRef.current) return;
 
-  try {
-    const node = qrCardRef.current;
-    const targetWidth = 1024;
+    try {
+      const node = qrCardRef.current;
+      const targetWidth = 1600;
 
-    const rect = node.getBoundingClientRect();
-    const scale = targetWidth / rect.width;
-    const targetHeight = Math.round(rect.height * scale);
+      const rect = node.getBoundingClientRect();
+      const scale = targetWidth / rect.width;
+      const targetHeight = Math.round(rect.height * scale);
 
-    const dataUrl = await toPng(node, {
-      width: targetWidth,
-      height: targetHeight,
-      pixelRatio: 2,
-      backgroundColor: "#ffffff",
-      style: {
-        transform: `scale(${scale})`,
-        transformOrigin: "top left",
-        width: `${rect.width}px`,
-        height: `${rect.height}px`,
-      },
-    });
+      const dataUrl = await toPng(node, {
+        width: targetWidth,
+        height: targetHeight,
+        pixelRatio: 2,
+        quality: 1,
+        backgroundColor: "#ffffff",
+        style: {
+          transform: `scale(${scale})`,
+          transformOrigin: "top left",
+          width: `${rect.width}px`,
+          height: `${rect.height}px`,
+        },
+      });
 
-    const link = document.createElement("a");
-    link.download = `${business.business_name}-review-card.png`;
-    link.href = dataUrl;
-    link.click();
+      const link = document.createElement("a");
+      link.download = `${business.business_name}-review-card.png`;
+      link.href = dataUrl;
+      link.click();
 
-  } catch (error) {
-    console.log(error);
-    alert("Could not download QR card");
+    } catch (error) {
+      console.log(error);
+      alert("Could not download QR card");
+    }
   }
-}
-
 
   useEffect(() => {
     async function getBusiness() {
@@ -176,7 +176,7 @@ export default function DashboardPage() {
                   Location
                 </p>
                 <p className="mt-2">
-                 📍  {business.city}
+                  📍 {business.city}
                 </p>
               </div>
 
@@ -242,21 +242,28 @@ export default function DashboardPage() {
             </div>
 
             {/* Downloadable / On-Screen QR Review Card */}
-            {/* Outer wrapper holds the shadow so it isn't clipped by the rounded/overflow-hidden inner card */}
-            <div className="mt-8 w-full max-w-md drop-shadow-2xl">
+            {/* Outer wrapper: colored glow shadow so the card looks like it's floating, like a printed standee */}
+            <div className="mt-8 w-full max-w-md">
               <div
-                ref={qrCardRef}
-                className="relative w-full overflow-hidden rounded-[40px] bg-white"
+                className="rounded-[42px] p-[3px] bg-gradient-to-br from-purple-300 via-white to-purple-400 shadow-[0_25px_60px_-15px_rgba(124,58,237,0.5)]"
               >
-                {/* City Map Background */}
-                <img
-                  src={backgroundImage}
-                  alt=""
-                  className="absolute inset-0 w-full h-full object-cover opacity-10 saturate-150 contrast-125"
-                />
+                <div
+                  ref={qrCardRef}
+                  className="relative w-full overflow-hidden rounded-[40px] bg-gradient-to-b from-purple-100 via-purple-50 to-white"
+                >
+                  {/* City Map Background */}
+                  <img
+                    src={backgroundImage}
+                    alt=""
+                    className="absolute inset-0 w-full h-full object-cover opacity-10 saturate-150 contrast-125"
+                  />
 
-                {/* Glossy diagonal shine sweep */}
-                <div className="absolute -inset-y-24 -left-1/3 w-1/4 rotate-12 bg-gradient-to-r from-transparent via-white/60 to-transparent pointer-events-none" />
+                  {/* Glossy diagonal shine sweep — two layers for a richer glass reflection */}
+                  <div className="absolute -inset-y-24 -left-1/3 w-1/4 rotate-12 bg-gradient-to-r from-transparent via-white/70 to-transparent pointer-events-none" />
+                  <div className="absolute -inset-y-24 left-1/4 w-1/6 rotate-12 bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none" />
+
+                  {/* Soft top highlight to fake an embossed/glass surface */}
+                  <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-white/70 to-transparent pointer-events-none" />
 
                 <div className="relative z-10 px-8 pt-10 pb-4">
 
@@ -303,7 +310,8 @@ export default function DashboardPage() {
 
                     {/* QR Code */}
                     <div className="mt-6 flex justify-center">
-                      <div className="rounded-3xl border-2 border-purple-100 bg-white p-5">
+                      <div className="relative rounded-3xl border-2 border-purple-100 bg-white p-5 shadow-[inset_0_1px_3px_rgba(0,0,0,0.06),0_8px_20px_-8px_rgba(124,58,237,0.35)]">
+                        <div className="absolute inset-x-3 top-1 h-4 rounded-full bg-white/70 blur-[2px] pointer-events-none" />
                         <QRCodeSVG
                           value={business.google_review_link || ""}
                           size={200}
@@ -339,45 +347,4 @@ export default function DashboardPage() {
                       <span>⭐</span>
                       <span>Powered by</span>
                     </div>
-                    <span className="text-lg font-bold leading-tight">Revioo</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <button
-              onClick={downloadQRCard}
-              className="mt-5 rounded-xl bg-purple-600 px-6 py-3 font-semibold text-white"
-            >
-              Download Review Card
-            </button>
-
-
-
-            {/* Facebook */}
-
-            {business.facebook_link && (
-              <div className="mt-6">
-
-                <a
-                  href={business.facebook_link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-400 hover:underline"
-                >
-                  Open Facebook Page →
-                </a>
-
-              </div>
-            )}
-
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </main>
-  );
-}
+                    
