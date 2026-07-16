@@ -257,16 +257,6 @@ export default function DashboardPage() {
                         </span>
                       </div>
 
-                      <div className="mt-10 flex items-center justify-center gap-5">
-                        <span className="h-px w-24 bg-purple-200" />
-                        <span className="text-3xl text-purple-500">♥</span>
-                        <span className="h-px w-24 bg-purple-200" />
-                      </div>
-
-                      <p className="mt-8 text-lg font-medium tracking-[0.25em] text-gray-500 uppercase font-serif">
-                        Your feedback helps us grow
-                      </p>
-
                       <div className="mt-12 flex justify-center">
   <div className="rounded-3xl border-4 border-purple-100 bg-white p-8 shadow-xl">
     <QRCodeSVG
@@ -276,23 +266,18 @@ export default function DashboardPage() {
   </div>
 </div>
 
-    
+<div className="mt-10 flex items-center justify-center gap-4">
+  <div className="h-14 w-14 rounded-full bg-white flex items-center justify-center text-3xl">
+    🔍
+  </div>
 
-                      <div className="mt-10 flex items-center justify-center gap-4">
-                        <div className="h-14 w-14 rounded-full bg-white flex items-center justify-center text-3xl">
-                          🔍
-                        </div>
-                        <p className="text-2xl text-gray-700 font-medium tracking-wide">
-                          Scan to review us on{" "}
-                          <span className="font-extrabold text-purple-600">Google</span>
-                        </p>
-                      </div>
-                      <div className="mt-10 flex justify-start pl-6">
-  
-                    </div>
-                  </div>
+  <p className="text-2xl text-gray-700 font-medium tracking-wide">
+    Scan to review us on{" "}
+    <span className="font-extrabold text-purple-600">Google</span>
+  </p>
+</div>
 
-                  {/* Catalogue QR */}
+{/* Catalogue QR */}
 <div className="absolute bottom-40 right-10 z-20">
   <div className="rounded-2xl bg-white p-3 shadow-2xl border border-purple-200">
     <QRCodeSVG
@@ -305,9 +290,9 @@ export default function DashboardPage() {
     </p>
   </div>
 </div>
-                  
-                  {/* 3D Wave Footer — soft single curve, deep purple gradient,
-                      centered glow + embossed REVIOO wordmark */}
+
+{/* 3D Wave Footer — soft single curve, deep purple gradient,
+    centered glow + embossed REVIOO wordmark */}
                   <div className="absolute bottom-0 left-0 w-full h-56">
                     <svg
                       viewBox="0 0 1023 220"
