@@ -11,21 +11,40 @@ export default function DashboardPage() {
   const qrCardRef = useRef<HTMLDivElement>(null);
 
   async function downloadQRCard() {
-  if (!qrCardRef.current) return;
+    if (!qrCardRef.current) return;
 
-  try {
-    const dataUrl = await toPng(qrCardRef.current);
+    try {
+      const node = qrCardRef.current;
+      const targetWidth = 1024;
+      const targetHeight = 1536;
 
-    const link = document.createElement("a");
-    link.download = `${business.business_name}-review-card.png`;
-    link.href = dataUrl;
-    link.click();
+      const rect = node.getBoundingClientRect();
+      const scale = targetWidth / rect.width;
 
-  } catch (error) {
-    console.log(error);
-    alert("Could not download QR card");
+      const dataUrl = await toPng(node, {
+        width: targetWidth,
+        height: targetHeight,
+        pixelRatio: 2,
+        backgroundColor: "#ffffff",
+        style: {
+          transform: `scale(${scale})`,
+          transformOrigin: "top left",
+          width: `${rect.width}px`,
+          height: `${rect.height}px`,
+        },
+      });
+
+      const link = document.createElement("a");
+      link.download = `${business.business_name}-review-card.png`;
+      link.href = dataUrl;
+      link.click();
+
+    } catch (error) {
+      console.log(error);
+      alert("Could not download QR card");
+    }
   }
-}
+
   useEffect(() => {
     async function getBusiness() {
       const {
@@ -53,26 +72,26 @@ export default function DashboardPage() {
   }, []);
 
   if (!business) {
+    return (
+      <main className="min-h-screen flex items-center justify-center bg-black text-white">
+        <h1 className="text-xl">
+          Loading business...
+        </h1>
+      </main>
+    );
+  }
+
+  const cityBackgrounds: Record<string, string> = {
+    mirpurkhas: "/backgrounds/mirpurkhas-map.png",
+    karachi: "/backgrounds/karachi-map.png",
+  };
+
+  const backgroundImage =
+    cityBackgrounds[business.city?.toLowerCase()] ||
+    "/backgrounds/mirpurkhas-map.png";
+
   return (
-    <main className="min-h-screen flex items-center justify-center bg-black text-white">
-      <h1 className="text-xl">
-        Loading business...
-      </h1>
-    </main>
-  );
-}
-
-const cityBackgrounds: Record<string, string> = {
-  mirpurkhas: "/backgrounds/mirpurkhas-map.png",
-  karachi: "/backgrounds/karachi-map.png",
-};
-
-const backgroundImage =
-  cityBackgrounds[business.city?.toLowerCase()] ||
-  "/backgrounds/mirpurkhas-map.png";
-
-return (
-  <main className="min-h-screen bg-black p-6 text-white">
+    <main className="min-h-screen bg-black p-6 text-white">
 
       <div className="max-w-5xl mx-auto">
 
@@ -82,28 +101,37 @@ return (
 
 
         <div
-  className="relative overflow-hidden rounded-3xl border border-white/10 p-8 shadow-2xl"
-  style={{
-  backgroundImage: `linear-gradient(rgba(10,10,10,0.85), rgba(10,10,10,0.85)), url(${backgroundImage})`,
-  backgroundSize: "cover",
-  backgroundPosition: "center",
-}}
->
+          className="relative overflow-hidden rounded-3xl border border-white/10 p-8 shadow-2xl"
+          style={{
+            backgroundImage: `linear-gradient(rgba(10,10,10,0.85), rgba(10,10,10,0.85)), url(${backgroundImage})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        >
 
-          {/* Glossy Business Name Background */}
+          {/* Glossy Map Background */}
 
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
-  <div className="absolute inset-0 -rotate-[25deg] opacity-5 flex flex-wrap content-center justify-center gap-x-8 gap-y-6 p-6">
-    {Array.from({ length: 36 }).map((_, i) => (
-      <span
-        key={i}
-        className="text-lg font-bold uppercase whitespace-nowrap text-white"
-      >
-        {business.business_name}
-      </span>
-    ))}
-  </div>
-</div>
+
+            <img
+              src={backgroundImage}
+              alt=""
+              className="absolute inset-0 w-full h-full object-cover opacity-25 saturate-150 contrast-125"
+            />
+
+            <div className="absolute -inset-y-20 -left-1/2 w-1/3 rotate-12 bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+              <div className="relative flex flex-col items-center">
+                <div className="h-8 w-8 rounded-full bg-gradient-to-br from-purple-300 via-purple-500 to-purple-700 shadow-lg shadow-purple-500/50 ring-4 ring-white/20 flex items-center justify-center">
+                  <div className="h-2.5 w-2.5 rounded-full bg-white/90" />
+                </div>
+                <div className="h-3 w-1 bg-gradient-to-b from-purple-600 to-transparent rounded-full -mt-0.5" />
+                <div className="mt-1 h-1.5 w-6 rounded-full bg-black/30 blur-[2px]" />
+              </div>
+            </div>
+
+          </div>
 
 
           {/* Glow */}
@@ -147,7 +175,7 @@ return (
                   Location
                 </p>
                 <p className="mt-2">
-                  📍 {business.city}
+                 📍  {business.city}
                 </p>
               </div>
 
@@ -213,92 +241,105 @@ return (
             </div>
 
             {/* Downloadable / On-Screen QR Review Card */}
-            <div
-              ref={qrCardRef}
-              className="relative mt-8 w-full max-w-md overflow-hidden rounded-[40px] bg-white shadow-2xl"
-            >
-              {/* City Map Background */}
-              <img
-                src={backgroundImage}
-                alt=""
-                className="absolute inset-0 w-full h-full object-cover opacity-10"
-              />
+            {/* Outer wrapper holds the shadow so it isn't clipped by the rounded/overflow-hidden inner card */}
+            <div className="mt-8 w-full max-w-md drop-shadow-2xl">
+              <div
+                ref={qrCardRef}
+                className="relative w-full overflow-hidden rounded-[40px] bg-white"
+              >
+                {/* City Map Background */}
+                <img
+                  src={backgroundImage}
+                  alt=""
+                  className="absolute inset-0 w-full h-full object-cover opacity-10 saturate-150 contrast-125"
+                />
 
-              {/* City Tag (top right) */}
-              <div className="absolute top-6 right-6 z-10 flex flex-col items-center text-purple-500">
-                <span className="text-xl">📍</span>
-                <span className="text-xs font-bold uppercase tracking-wide">
-                  {business.city}
-                </span>
-              </div>
+                {/* Glossy diagonal shine sweep */}
+                <div className="absolute -inset-y-24 -left-1/3 w-1/4 rotate-12 bg-gradient-to-r from-transparent via-white/60 to-transparent pointer-events-none" />
 
-              <div className="relative z-10 px-8 pt-10 pb-4 text-center">
+                <div className="relative z-10 px-8 pt-10 pb-4">
 
-                {/* Logo */}
-                <div className="mx-auto mb-4 h-16 w-16 rounded-2xl bg-gradient-to-br from-purple-600 to-purple-700 flex items-center justify-center text-3xl font-bold text-white shadow-lg">
-                  {business.business_name?.charAt(0)}
-                </div>
+                  {/* Header row: logo left, city tag right — no overlap */}
+                  <div className="flex items-start justify-between">
 
-                <h2 className="text-2xl font-bold text-black">
-                  {business.business_name}
-                </h2>
+                    <div className="h-16 w-16 rounded-2xl bg-gradient-to-br from-purple-600 to-purple-700 flex items-center justify-center text-3xl font-bold text-white shadow-lg">
+                      {business.business_name?.charAt(0)}
+                    </div>
 
-                {/* Category pill */}
-                <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-purple-200 bg-purple-50 px-4 py-1.5">
-                  <span>🏪</span>
-                  <span className="text-sm font-semibold text-purple-600">
-                    {business.category}
-                  </span>
-                </div>
+                    <div className="flex flex-col items-center text-purple-500 shrink-0">
+                      <span className="text-xl">📍</span>
+                      <span className="text-xs font-bold uppercase tracking-wide whitespace-nowrap">
+                        {business.city}
+                      </span>
+                    </div>
 
-                {/* Divider with heart */}
-                <div className="mt-5 flex items-center justify-center gap-3">
-                  <span className="h-px w-16 bg-purple-200"></span>
-                  <span className="text-purple-500">♥</span>
-                  <span className="h-px w-16 bg-purple-200"></span>
-                </div>
+                  </div>
 
-                <p className="mt-3 text-xs font-semibold tracking-widest text-gray-500 uppercase">
-                  Your feedback helps us grow
-                </p>
+                  <div className="text-center">
 
-                {/* QR Code */}
-                <div className="mt-6 flex justify-center">
-                  <div className="rounded-3xl border-2 border-purple-100 bg-white p-5 shadow-xl">
-                    <QRCodeSVG
-                      value={business.google_review_link || ""}
-                      size={200}
-                    />
+                    <h2 className="mt-4 text-2xl font-bold text-black">
+                      {business.business_name}
+                    </h2>
+
+                    {/* Category pill */}
+                    <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-purple-200 bg-purple-50 px-4 py-1.5">
+                      <span>🏪</span>
+                      <span className="text-sm font-semibold text-purple-600">
+                        {business.category}
+                      </span>
+                    </div>
+
+                    {/* Divider with heart */}
+                    <div className="mt-5 flex items-center justify-center gap-3">
+                      <span className="h-px w-16 bg-purple-200"></span>
+                      <span className="text-purple-500">♥</span>
+                      <span className="h-px w-16 bg-purple-200"></span>
+                    </div>
+
+                    <p className="mt-3 text-xs font-semibold tracking-widest text-gray-500 uppercase">
+                      Your feedback helps us grow
+                    </p>
+
+                    {/* QR Code */}
+                    <div className="mt-6 flex justify-center">
+                      <div className="rounded-3xl border-2 border-purple-100 bg-white p-5">
+                        <QRCodeSVG
+                          value={business.google_review_link || ""}
+                          size={200}
+                        />
+                      </div>
+                    </div>
+
+                    {/* Google review line */}
+                    <div className="mt-6 flex items-center justify-center gap-2">
+                      <div className="h-8 w-8 rounded-full bg-white flex items-center justify-center text-lg">
+                        🔍
+                      </div>
+                      <p className="text-sm text-gray-700">
+                        Scan to review us on{" "}
+                        <span className="font-bold text-purple-600">Google</span>
+                      </p>
+                    </div>
+
                   </div>
                 </div>
 
-                {/* Google review line */}
-                <div className="mt-6 flex items-center justify-center gap-2">
-                  <div className="h-8 w-8 rounded-full bg-white shadow flex items-center justify-center text-lg">
-                    🔍
+                {/* Bottom purple curve footer */}
+                <div className="relative mt-4">
+                  <svg
+                    viewBox="0 0 500 80"
+                    className="w-full h-16 block"
+                    preserveAspectRatio="none"
+                  >
+                    <path d="M0,40 C150,90 350,0 500,40 L500,80 L0,80 Z" fill="#7C3AED" />
+                  </svg>
+                  <div className="absolute inset-0 flex flex-col items-center justify-end pb-4 text-white">
+                    <div className="flex items-center gap-1 text-xs">
+                      <span>⭐</span>
+                      <span>Powered by</span>
+                    </div>
+                    <span className="text-lg font-bold leading-tight">Revioo</span>
                   </div>
-                  <p className="text-sm text-gray-700">
-                    Scan to review us on{" "}
-                    <span className="font-bold text-purple-600">Google</span>
-                  </p>
-                </div>
-              </div>
-
-              {/* Bottom purple curve footer */}
-              <div className="relative mt-4">
-                <svg
-                  viewBox="0 0 500 80"
-                  className="w-full h-16 block"
-                  preserveAspectRatio="none"
-                >
-                  <path d="M0,40 C150,90 350,0 500,40 L500,80 L0,80 Z" fill="#7C3AED" />
-                </svg>
-                <div className="absolute inset-0 flex flex-col items-center justify-end pb-4 text-white">
-                  <div className="flex items-center gap-1 text-xs">
-                    <span>⭐</span>
-                    <span>Powered by</span>
-                  </div>
-                  <span className="text-lg font-bold leading-tight">Revioo</span>
                 </div>
               </div>
             </div>
