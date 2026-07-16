@@ -313,7 +313,6 @@ export default function DashboardPage() {
     preserveAspectRatio="none"
     className="absolute bottom-0 w-full h-full"
   >
-
     <defs>
 
       <linearGradient id="waveCrystal" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -329,7 +328,7 @@ export default function DashboardPage() {
         <stop offset="100%" stopColor="#FFFFFF" stopOpacity="0" />
       </linearGradient>
 
-      <filter id="waveGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <filter id="waveGlow">
         <feGaussianBlur stdDeviation="10" />
       </filter>
 
@@ -343,25 +342,21 @@ export default function DashboardPage() {
       filter="url(#waveGlow)"
     />
 
-
     <path
       d="M0 75 C260 -20 500 175 1023 45 L1023 220 L0 220 Z"
       fill="url(#waveCrystal)"
     />
-
 
     <path
       d="M0 75 C260 -20 500 175 1023 45 C650 120 350 55 0 130 Z"
       fill="url(#glassShine)"
     />
 
-
     <path
       d="M0 155 C260 80 600 230 1023 120 L1023 220 L0 220 Z"
       fill="#4C1D95"
       opacity="0.55"
     />
-
 
     <path
       d="M0 95 C260 5 500 190 1023 65"
@@ -373,26 +368,45 @@ export default function DashboardPage() {
   </svg>
 
 
- <div className="absolute inset-0 flex flex-col items-center justify-end pb-9">
+  <div className="absolute inset-0 flex flex-col items-center justify-end pb-9">
 
-  <div className="absolute bottom-[92px] h-32 w-32 rounded-full bg-purple-300/60 blur-3xl" />
+    <div className="absolute bottom-[92px] h-32 w-32 rounded-full bg-purple-300/60 blur-3xl" />
 
-  <div className="relative flex h-16 w-16 items-center justify-center rounded-full bg-white shadow-[0_0_45px_rgba(216,180,254,.95)]">
-    <span className="text-3xl font-black text-purple-700">
-      R
-    </span>
+    <div className="relative flex h-16 w-16 items-center justify-center rounded-full bg-white shadow-[0_0_45px_rgba(216,180,254,.95)]">
+      <span className="text-3xl font-black text-purple-700">
+        R
+      </span>
+    </div>
+
+    <h2
+      className="mt-3 text-3xl font-black tracking-[0.3em] text-white"
+      style={{
+        textShadow:
+          "0 1px 0 rgba(255,255,255,.35),0 2px 3px rgba(0,0,0,.45)"
+      }}
+    >
+      REVIOO
+    </h2>
+
+    <p className="mt-1 text-xs tracking-[0.3em] uppercase text-purple-100">
+      Build Trust • Get Discovered
+    </p>
+
+    <p className="mt-2 text-xs text-purple-100">
+      ✆ Contact us: 03353727314
+    </p>
+
   </div>
 
-  <h2>REVIOO</h2>
-
-  <p>Build Trust • Get Discovered</p>
-
-  <p>✆ Contact us: 03353727314</p>
-
-</div>
 </div>
 
 
+{/* CLOSE QR CARD */}
+</div>
+
+
+{/* CLOSE CARD WRAPPER */}
+</div>
 {/* Actions live OUTSIDE captured card */}
 <div className="mt-6 flex flex-col items-center gap-3">
 
