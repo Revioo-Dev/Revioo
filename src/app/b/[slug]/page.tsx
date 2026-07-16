@@ -34,6 +34,11 @@ const business = data as any;
 
   return (
     <div className="min-h-screen bg-gray-50">
+
+      <h1 className="text-3xl text-red-500">
+        REAL CATALOGUE PAGE
+      </h1>
+
       {/* Header */}
       <header className="bg-white border-b border-gray-200 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
