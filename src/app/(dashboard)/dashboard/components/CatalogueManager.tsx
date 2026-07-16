@@ -81,13 +81,15 @@ export default function CatalogueManager({ businessId }: { businessId: string })
         imageUrl = publicUrlData.publicUrl;
       }
 
-      const { error: insertError } = await supabase.from("catalogue_items").insert({
-        business_id: businessId,
-        name: name.trim(),
-        description: description.trim() || null,
-        price: price.trim() ? parseFloat(price) : null,
-        image_url: imageUrl,
-      });
+      const { error: insertError } = await (supabase
+  .from("catalogue_items") as any)
+  .insert({
+    business_id: businessId,
+    name: name.trim(),
+    description: description.trim() || null,
+    price: price.trim() ? parseFloat(price) : null,
+    image_url: imageUrl,
+  });
 
       if (insertError) throw insertError;
 
