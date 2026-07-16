@@ -17,7 +17,7 @@ export default function Footer() {
   <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none">
     <svg
       viewBox="0 0 1440 220"
-      className="w-full h-[220px] rotate-180"
+      className="w-full h-[220px]"
       preserveAspectRatio="none"
     >
       <defs>
@@ -34,12 +34,18 @@ export default function Footer() {
       </defs>
 
       <path
-        d="M0,80 C240,200 520,0 760,90 C980,170 1180,20 1440,100 L1440,0 L0,0 Z"
-        fill="url(#footerWave)"
-      />
+  d="M0,220
+     C220,120 420,180 720,110
+     C980,60 1180,170 1440,120
+     L1440,220
+     Z"
+  fill="url(#footerWave)"
+/>
 
       <path
-        d="M0,75 C240,185 520,10 760,85 C980,160 1180,30 1440,95"
+  d="M0,215
+     C220,115 420,175 720,105
+     C980,55 1180,165 1440,115"
         stroke="url(#waveGloss)"
         strokeWidth="6"
         fill="none"
