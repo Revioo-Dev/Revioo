@@ -81,13 +81,12 @@ if (!user) return;
 
 const { data: subscription } = await supabase
   .from("subscriptions")
-  .select("status")
+  .select("*")
   .eq("user_id", user.id)
   .single();
 
-if (!subscription || subscription.status !== "active") {
-  window.location.href = "/pricing";
-  return;
+if (!subscription) {
+  redirect("/pricing");
 }
 
 const { data, error } = await supabase
