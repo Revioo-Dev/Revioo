@@ -433,56 +433,84 @@ export default function DashboardPage() {
 
 
 
-                  {/* FOOTER */}
+                  {/* Premium 3D Wave Footer */}
+<div className="absolute bottom-0 left-0 w-full h-56">
 
-                  <div className="absolute bottom-0 left-0 right-0">
+  {/* Back Wave */}
+  <svg
+    viewBox="0 0 1023 220"
+    preserveAspectRatio="none"
+    className="absolute bottom-0 w-full h-full"
+  >
+    <defs>
+      <linearGradient id="waveBack" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#4C1D95"/>
+        <stop offset="100%" stopColor="#6D28D9"/>
+      </linearGradient>
 
+      <linearGradient id="waveFront" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#7C3AED"/>
+        <stop offset="100%" stopColor="#A855F7"/>
+      </linearGradient>
+    </defs>
 
-                    <svg
-                      viewBox="0 0 500 80"
-                      className="w-full h-28"
-                      preserveAspectRatio="none"
-                    >
+    {/* Rear Wave */}
+    <path
+      d="M0,120
+         C170,40 330,190 512,105
+         C700,20 860,170 1023,95
+         L1023,220
+         L0,220Z"
+      fill="url(#waveBack)"
+      opacity="0.75"
+    />
 
-                      <path
-                        d="M0,40 C150,90 350,0 500,40 L500,80 L0,80 Z"
-                        fill="#7C3AED"
-                      />
+    {/* Front Wave */}
+    <path
+      d="M0,145
+         C200,70 360,215 512,140
+         C690,55 860,200 1023,130
+         L1023,220
+         L0,220Z"
+      fill="url(#waveFront)"
+    />
 
-                    </svg>
+    {/* Top Highlight */}
+    <path
+      d="M0,145
+         C200,70 360,215 512,140
+         C690,55 860,200 1023,130"
+      stroke="rgba(255,255,255,.35)"
+      strokeWidth="5"
+      fill="none"
+    />
+  </svg>
 
+  {/* Logo */}
+  <div className="absolute inset-0 flex flex-col items-center justify-end pb-10">
 
+    {/* Glow */}
+    <div className="absolute bottom-20 h-36 w-36 rounded-full bg-purple-400/60 blur-3xl"></div>
 
-                    <div className="absolute inset-0 flex flex-col items-center justify-end pb-8 text-white">
+    {/* Logo Badge */}
+    <div className="relative flex h-20 w-20 items-center justify-center rounded-full bg-white shadow-[0_0_45px_rgba(168,85,247,.8)]">
+      <span className="text-4xl font-black text-purple-700">
+        R
+      </span>
+    </div>
 
+    {/* Brand */}
+    <h2 className="mt-4 text-3xl font-black tracking-[0.35em] text-white">
+      REVIOO
+    </h2>
 
-                      <div className="flex items-center gap-2 text-lg">
+    <p className="mt-2 text-sm tracking-[0.3em] uppercase text-purple-100">
+      BUILD TRUST • GET DISCOVERED
+    </p>
 
-                        ⭐ Powered by
+  </div>
 
-                      </div>
-
-
-                      <span className="text-4xl tracking-wide">
-                        𝑹𝑬𝑽𝑰𝑶𝑶
-                      </span>
-
-
-                    </div>
-
-
-                  </div>
-
-
-
-                </div>
-
-
-
-              </div>
-
-
-            </div>
+</div>
 
 
 
