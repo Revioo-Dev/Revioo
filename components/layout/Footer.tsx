@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { MessageCircle, Linkedin } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
 
 const footerLinks = {
   PRODUCTS: ["Pricing", "Roadmap"],
@@ -27,16 +27,18 @@ export default function Footer() {
             </p>
 
             <div className="flex items-center gap-4 mt-6">
-              {[MessageCircle].map((Icon, i) => (
-                <a
-                  key={i}
-                  href="#"
-                  className="w-9 h-9 rounded-lg glass flex items-center justify-center text-zinc-500 hover:text-white hover:border-purple-500/40 transition-all"
-                >
-                  <Icon size={16} />
-                </a>
-              ))}
-            </div>
+  {[FaWhatsapp].map((Icon, i) => (
+    <a
+      key={i}
+      href="https://wa.me/+923353727314" // Replace with your WhatsApp number
+      target="_blank"
+      rel="noopener noreferrer"
+      className="w-9 h-9 rounded-lg glass flex items-center justify-center text-zinc-500 hover:text-green-500 hover:border-green-500/40 transition-all"
+    >
+      <Icon size={18} />
+    </a>
+  ))}
+</div>
           </div>
 
           {/* Links */}
