@@ -191,6 +191,17 @@ export default function DashboardPage() {
 
             <CatalogueManager businessId={business.id} />
 
+<div className="mt-4">
+  <a
+    href={`/b/${business.slug}`}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="inline-block rounded-xl bg-purple-600 px-6 py-3 font-semibold text-white hover:bg-purple-700 transition"
+  >
+    Open Full Catalogue
+  </a>
+</div>
+
             {/* QR REVIEW CARD */}
             <div className="mt-8 flex flex-col items-center">
 
