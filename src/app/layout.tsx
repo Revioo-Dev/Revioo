@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Footer from "@/Footer";
+import Footer from "@/layout/Footer";
 
 export const metadata: Metadata = {
   title: "Reviooo - Build Trust. Get Discovered.",
