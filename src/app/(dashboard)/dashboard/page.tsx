@@ -4,6 +4,9 @@ import { supabase } from "@/lib/supabase/client";
 import { useEffect, useState, useRef } from "react";
 import { QRCodeSVG } from "qrcode.react";
 import { toPng } from "html-to-image";
+import { Lora } from "next/font/google";
+
+const lora = Lora({ subsets: ["latin"], weight: "variable" });
 
 const CARD_WIDTH = 1023;
 const CARD_HEIGHT = 1537;
@@ -223,7 +226,10 @@ export default function DashboardPage() {
                     </div>
 
                     <div className="flex-1 text-center">
-                      <h2 className="mt-12 text-6xl font-extrabold text-black leading-tight">
+                      <h2
+                        className={`${lora.className} mt-12 text-5xl uppercase tracking-wide text-black leading-tight`}
+                        style={{ fontWeight: 650 }}
+                      >
                         {business.business_name}
                       </h2>
 
@@ -318,13 +324,12 @@ export default function DashboardPage() {
                       </h2>
 
                       <p className="mt-1.5 text-xs tracking-[0.3em] uppercase text-purple-100/90">
-  Build Trust • Get Discovered
-</p>
+                        Build Trust • Get Discovered
+                      </p>
 
-<p className="mt-2 text-xs tracking-wide text-purple-100/80">
-  ✆ Contact us: 03353727314
-</p>
-
+                      <p className="mt-2 text-xs tracking-wide text-purple-100/80">
+                        ✆ Contact us: 03353727314
+                      </p>
                     </div>
                   </div>
                 </div>
