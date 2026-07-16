@@ -238,7 +238,6 @@ export default function DashboardPage() {
 
 <div className="absolute bottom-24 left-1/2 -translate-x-1/2 h-[420px] w-[420px] rounded-full bg-violet-500/20 blur-[150px]" />
 
-<div className="relative z-10 flex h-full flex-col px-20 pt-16 pb-10">
                   <div className="relative z-10 flex h-full flex-col px-20 pt-16 pb-10">
                     <div className="flex items-start justify-between">
                       <div className="h-24 w-24 rounded-3xl bg-purple-600 flex items-center justify-center text-5xl font-bold text-white shadow-lg">
