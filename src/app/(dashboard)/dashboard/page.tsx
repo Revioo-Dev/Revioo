@@ -291,9 +291,11 @@ export default function DashboardPage() {
   </div>
 </div>
 
-{/* 3D Wave Footer — soft single curve, deep purple gradient,
-    centered glow + embossed REVIOO wordmark */}
-                  <div className="absolute bottom-0 left-0 w-full h-56">
+</div> {/* closes flex-1 text-center */}
+</div> {/* closes relative z-10 flex h-full flex-col */}
+
+{/* 3D Wave Footer */}
+<div className="absolute bottom-0 left-0 w-full h-56">
                     <svg
                       viewBox="0 0 1023 220"
                       preserveAspectRatio="none"
@@ -363,7 +365,7 @@ export default function DashboardPage() {
               <div className="mt-6 flex flex-col items-center gap-3">
                 <button
                   onClick={downloadQRCard}
-                  className="rounded-xl bg-purple-600 px-6 py-3 font-semibold text-white hover:bg-purple-700 transition"
+                  className="rounded-xl bg-purple-600 px-6 py-3 ifont-semibold text-white hover:bg-purple-700 transition"
                 >
                   Download Review Card
                 </button>
