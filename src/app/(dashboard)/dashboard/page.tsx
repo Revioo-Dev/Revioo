@@ -235,19 +235,31 @@ return (
     </div>
 
     <h2 className="text-2xl font-bold text-black">
-      {business.business_name}
-    </h2>
+  {business.business_name}
+</h2>
 
-    <p className="mt-1 text-gray-600">
-      {business.category}
-    </p>
+<p className="mt-1 text-gray-600">
+  {business.category}
+</p>
 
-    <div className="mt-6 flex justify-center">
-      <QRCodeSVG
-        value={business.google_review_link || ""}
-        size={200}
-      />
-    </div>
+<div className="mt-4 flex items-center justify-center gap-1 text-yellow-500 text-xl">
+  ⭐⭐⭐⭐⭐
+</div>
+
+<p className="mt-2 text-sm text-gray-500">
+  We'd love your feedback on Google
+</p>
+
+<div className="mt-8 flex justify-center">
+  <div className="rounded-3xl border-2 border-purple-200 bg-white p-5 shadow-xl">
+
+    <QRCodeSVG
+      value={business.google_review_link || ""}
+      size={200}
+    />
+
+  </div>
+</div>
 
     <p className="mt-5 text-sm font-semibold text-black">
       ⭐ Scan to leave us a Google Review
