@@ -1,0 +1,236 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { supabase } from "@/lib/supabase/client";
+
+interface CatalogueItem {
+  id: string;
+  name: string;
+  description: string | null;
+  price: number | null;
+  image_url: string | null;
+}
+
+export default function CatalogueManager({ businessId }: { businessId: string }) {
+  const [items, setItems] = useState<CatalogueItem[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [showForm, setShowForm] = useState(false);
+  const [saving, setSaving] = useState(false);
+
+  // form fields
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState("");
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
+
+  async function loadItems() {
+    setLoading(true);
+    const { data, error } = await supabase
+      .from("catalogue_items")
+      .select("*")
+      .eq("business_id", businessId)
+      .order("created_at", { ascending: false });
+
+    if (!error && data) setItems(data as CatalogueItem[]);
+    setLoading(false);
+  }
+
+  useEffect(() => {
+    loadItems();
+  }, [businessId]);
+
+  function handleImageChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0] ?? null;
+    setImageFile(file);
+    setImagePreview(file ? URL.createObjectURL(file) : null);
+  }
+
+  function resetForm() {
+    setName("");
+    setDescription("");
+    setPrice("");
+    setImageFile(null);
+    setImagePreview(null);
+  }
+
+  async function handleAddItem() {
+    if (!name.trim()) {
+      alert("Please enter at least a name for the item.");
+      return;
+    }
+
+    setSaving(true);
+    let imageUrl: string | null = null;
+
+    try {
+      if (imageFile) {
+        const fileExt = imageFile.name.split(".").pop();
+        const filePath = `${businessId}/${Date.now()}.${fileExt}`;
+
+        const { error: uploadError } = await supabase.storage
+          .from("catalogue-images")
+          .upload(filePath, imageFile);
+
+        if (uploadError) throw uploadError;
+
+        const { data: publicUrlData } = supabase.storage
+          .from("catalogue-images")
+          .getPublicUrl(filePath);
+
+        imageUrl = publicUrlData.publicUrl;
+      }
+
+      const { error: insertError } = await supabase.from("catalogue_items").insert({
+        business_id: businessId,
+        name: name.trim(),
+        description: description.trim() || null,
+        price: price.trim() ? parseFloat(price) : null,
+        image_url: imageUrl,
+      });
+
+      if (insertError) throw insertError;
+
+      resetForm();
+      setShowForm(false);
+      loadItems();
+    } catch (err) {
+      console.log(err);
+      alert("Could not save item. Please try again.");
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  async function handleDelete(id: string) {
+    const confirmed = confirm("Delete this item?");
+    if (!confirmed) return;
+
+    const { error } = await supabase.from("catalogue_items").delete().eq("id", id);
+    if (error) {
+      console.log(error);
+      alert("Could not delete item.");
+      return;
+    }
+    loadItems();
+  }
+
+  return (
+    <div className="mt-8 rounded-3xl bg-white/5 border border-white/10 p-6">
+      <div className="flex items-center justify-between mb-5">
+        <h3 className="text-2xl font-bold">Catalogue / Menu</h3>
+        <button
+          onClick={() => setShowForm((prev) => !prev)}
+          className="rounded-xl bg-purple-600 px-5 py-2.5 font-semibold hover:bg-purple-700 transition"
+        >
+          {showForm ? "Cancel" : "+ Add Item"}
+        </button>
+      </div>
+
+      {showForm && (
+        <div className="mb-6 rounded-2xl bg-white/5 border border-white/10 p-5 space-y-4">
+          <div>
+            <label className="block text-sm text-gray-400 mb-1">Item name *</label>
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="e.g. Chicken Karahi"
+              className="w-full rounded-xl bg-black/40 border border-white/10 px-4 py-2.5 text-white outline-none focus:border-purple-500"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm text-gray-400 mb-1">
+              Description (optional)
+            </label>
+            <textarea
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              placeholder="Tell customers what's in it..."
+              rows={2}
+              className="w-full rounded-xl bg-black/40 border border-white/10 px-4 py-2.5 text-white outline-none focus:border-purple-500"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm text-gray-400 mb-1">
+              Price (optional)
+            </label>
+            <input
+              type="number"
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+              placeholder="e.g. 850"
+              className="w-full rounded-xl bg-black/40 border border-white/10 px-4 py-2.5 text-white outline-none focus:border-purple-500"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm text-gray-400 mb-1">
+              Image (optional)
+            </label>
+            <input type="file" accept="image/*" onChange={handleImageChange} />
+            {imagePreview && (
+              <img
+                src={imagePreview}
+                alt="preview"
+                className="mt-3 h-32 w-32 object-cover rounded-xl border border-white/10"
+              />
+            )}
+          </div>
+
+          <button
+            onClick={handleAddItem}
+            disabled={saving}
+            className="rounded-xl bg-purple-600 px-6 py-2.5 font-semibold hover:bg-purple-700 transition disabled:opacity-50"
+          >
+            {saving ? "Saving..." : "Save Item"}
+          </button>
+        </div>
+      )}
+
+      {loading ? (
+        <p className="text-gray-400">Loading catalogue...</p>
+      ) : items.length === 0 ? (
+        <p className="text-gray-400">No items yet. Add your first one above.</p>
+      ) : (
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
+          {items.map((item) => (
+            <div
+              key={item.id}
+              className="rounded-2xl bg-white/5 border border-white/10 overflow-hidden"
+            >
+              {item.image_url && (
+                <img
+                  src={item.image_url}
+                  alt={item.name}
+                  className="w-full h-36 object-cover"
+                />
+              )}
+              <div className="p-4">
+                <div className="flex items-start justify-between gap-2">
+                  <h4 className="font-semibold">{item.name}</h4>
+                  {item.price !== null && (
+                    <span className="text-purple-400 font-bold whitespace-nowrap">
+                      Rs {item.price}
+                    </span>
+                  )}
+                </div>
+                {item.description && (
+                  <p className="text-sm text-gray-400 mt-1">{item.description}</p>
+                )}
+                <button
+                  onClick={() => handleDelete(item.id)}
+                  className="mt-3 text-xs text-red-400 hover:underline"
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
