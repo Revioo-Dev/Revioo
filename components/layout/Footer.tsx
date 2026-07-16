@@ -106,6 +106,13 @@ export default function Footer() {
           <p className="text-xs text-zinc-600">
             Built with ❤️ for businesses that care about trust.
           </p>
+
         </div>
+
       </div>
+
     </footer>
+
+  );
+
+}
