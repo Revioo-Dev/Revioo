@@ -1,5 +1,16 @@
 import { createClient } from "@/lib/supabase/server";
 
+interface AccessRequest {
+  id: string;
+  business_name: string;
+  owner_name: string;
+  email: string;
+  phone: string;
+  category: string;
+  status: string;
+  created_at: string;
+}
+
 export default async function AdminRequestsPage() {
   const supabase = await createClient();
 
@@ -9,11 +20,11 @@ export default async function AdminRequestsPage() {
     .eq("status", "pending")
     .order("created_at", { ascending: false });
 
-
   if (error) {
     return <div>Error loading requests</div>;
   }
 
+  const typedRequests = requests as AccessRequest[] | null;
 
   return (
     <div className="p-8">
@@ -21,57 +32,36 @@ export default async function AdminRequestsPage() {
         Admin Requests
       </h1>
 
-
-      {requests?.length === 0 && (
+      {typedRequests?.length === 0 && (
         <p>No pending requests</p>
       )}
 
-
       <div className="space-y-4">
-        {requests?.map((request) => (
+        {typedRequests?.map((request) => (
           <div
             key={request.id}
             className="border rounded-xl p-5"
           >
-
             <h2 className="text-xl font-semibold">
               {request.business_name}
             </h2>
 
-            <p>
-              Owner: {request.owner_name}
-            </p>
-
-            <p>
-              Email: {request.email}
-            </p>
-
-            <p>
-              Phone: {request.phone}
-            </p>
-
-            <p>
-              Category: {request.category}
-            </p>
-
+            <p>Owner: {request.owner_name}</p>
+            <p>Email: {request.email}</p>
+            <p>Phone: {request.phone}</p>
+            <p>Category: {request.category}</p>
 
             <div className="mt-4 flex gap-3">
-
               <button className="bg-green-600 text-white px-4 py-2 rounded">
                 Approve
               </button>
-
-
               <button className="bg-red-600 text-white px-4 py-2 rounded">
                 Reject
               </button>
-
             </div>
-
           </div>
         ))}
       </div>
-
     </div>
   );
 }
