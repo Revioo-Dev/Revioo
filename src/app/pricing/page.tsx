@@ -105,15 +105,20 @@ export default function PricingPage() {
                   )}
                 </div>
 
-                <button
-                  className={`mt-8 w-full rounded-xl py-3 font-semibold transition ${
-                    plan.featured
-                      ? "bg-gradient-to-r from-purple-500 to-fuchsia-500 hover:opacity-90"
-                      : "border border-white/20 hover:bg-white/10"
-                  }`}
-                >
-                  {plan.button}
-                </button>
+                <a
+  href={`https://wa.me/923353727314?text=${encodeURIComponent(
+    `Hi Revioo! I'm interested in the ${plan.name} plan.`
+  )}`}
+  target="_blank"
+  rel="noopener noreferrer"
+  className={`mt-8 flex w-full items-center justify-center rounded-xl py-3 font-semibold transition ${
+    plan.featured
+      ? "bg-gradient-to-r from-purple-500 to-fuchsia-500 hover:opacity-90"
+      : "border border-white/20 hover:bg-white/10"
+  }`}
+>
+  {plan.button}
+</a>
 
                 <div className="mt-8 space-y-4">
                   {plan.features.map((feature) => (
