@@ -22,18 +22,10 @@ export default function DashboardPage() {
       const targetHeight = Math.round(rect.height * scale);
 
       const dataUrl = await toPng(node, {
-        width: targetWidth,
-        height: targetHeight,
-        pixelRatio: 2,
-        quality: 1,
-        backgroundColor: "#ffffff",
-        style: {
-          transform: `scale(${scale})`,
-          transformOrigin: "top left",
-          width: `${rect.width}px`,
-          height: `${rect.height}px`,
-        },
-      });
+  cacheBust: true,
+  pixelRatio: 2,
+  backgroundColor: "#ffffff",
+});
 
       const link = document.createElement("a");
       link.download = `${business.business_name}-review-card.png`;
