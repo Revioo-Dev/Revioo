@@ -86,6 +86,7 @@ export default function DashboardPage() {
       }
 
       setBusiness(data?.[0] ?? null);
+      console.log(data?.[0]);
     }
 
     getBusiness();
