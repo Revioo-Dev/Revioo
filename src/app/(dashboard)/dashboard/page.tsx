@@ -299,6 +299,17 @@ export default function DashboardPage() {
                           <span className="font-extrabold text-purple-600">Google</span>
                         </p>
                       </div>
+                      <div className="mt-10 flex justify-start pl-6">
+  <div className="rounded-2xl bg-white p-3 shadow-xl border border-purple-200">
+    <QRCodeSVG
+      value={`${window.location.origin}/b/${business.slug}`}
+      size={90}
+    />
+    <p className="mt-2 text-center text-xs font-bold text-purple-600">
+      View Catalogue
+    </p>
+  </div>
+</div>
                     </div>
                   </div>
 
