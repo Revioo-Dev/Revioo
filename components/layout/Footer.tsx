@@ -89,26 +89,29 @@ export default function Footer() {
               </h4>
 
               <ul className="space-y-2.5">
-                {links.map((link) => (
-  <li key={link}>
-    <Link
-      href={
-        link === "Pricing"
-          ? "/pricing"
-          : link === "Roadmap"
-          ? "/roadmap"
-          : link === "About"
-          ? "/about"
-          : link === "Privacy"
-          ? "/privacy"
-          : "/terms"
-      }
-      className="text-sm text-zinc-500 hover:text-white transition-colors"
-    >
-      {link}
-    </Link>
-  </li>
-))}
+                {links.map((link) => {
+  const href =
+    link === "Pricing"
+      ? "/pricing"
+      : link === "Roadmap"
+      ? "/roadmap"
+      : link === "About"
+      ? "/about"
+      : link === "Privacy"
+      ? "/privacy"
+      : "/terms";
+
+  return (
+    <li key={link}>
+      <Link
+        href={href}
+        className="text-sm text-zinc-500 hover:text-white transition-colors"
+      >
+        {link}
+      </Link>
+    </li>
+  );
+})}
               </ul>
             </div>
           ))}
