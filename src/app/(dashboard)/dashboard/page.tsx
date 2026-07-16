@@ -53,17 +53,26 @@ export default function DashboardPage() {
   }, []);
 
   if (!business) {
-    return (
-      <main className="min-h-screen flex items-center justify-center bg-black text-white">
-        <h1 className="text-xl">
-          Loading business...
-        </h1>
-      </main>
-    );
-  }
-
   return (
-    <main className="min-h-screen bg-black p-6 text-white">
+    <main className="min-h-screen flex items-center justify-center bg-black text-white">
+      <h1 className="text-xl">
+        Loading business...
+      </h1>
+    </main>
+  );
+}
+
+const cityBackgrounds: Record<string, string> = {
+  mirpurkhas: "/images/mirpurkhas-map.png",
+  karachi: "/images/karachi-map.png",
+};
+
+const backgroundImage =
+  cityBackgrounds[business.city?.toLowerCase()] ||
+  "/images/default-map.png";
+
+return (
+  <main className="min-h-screen bg-black p-6 text-white">
 
       <div className="max-w-5xl mx-auto">
 
@@ -72,8 +81,14 @@ export default function DashboardPage() {
         </h1>
 
 
-        <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-purple-900/40 via-black to-black backdrop-blur-xl p-8 shadow-2xl">
-
+        <div
+  className="relative overflow-hidden rounded-3xl border border-white/10 p-8 shadow-2xl"
+  style={{
+  backgroundImage: `linear-gradient(rgba(10,10,10,0.85), rgba(10,10,10,0.85)), url(${backgroundImage})`,
+  backgroundSize: "cover",
+  backgroundPosition: "center",
+}}
+>
 
           {/* Glossy Business Name Background */}
 
@@ -199,7 +214,12 @@ export default function DashboardPage() {
 
             <div
   ref={qrCardRef}
-  className="mt-8 w-full max-w-sm rounded-3xl bg-white p-8 text-black text-center shadow-2xl"
+  className="mt-8 w-full max-w-sm rounded-3xl p-8 text-center shadow-2xl overflow-hidden relative"
+  style={{
+    backgroundImage: `linear-gradient(rgba(255,255,255,0.93), rgba(255,255,255,0.93)), url(${backgroundImage})`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+  }}
 >
 
   <div className="mx-auto mb-4 h-16 w-16 rounded-2xl bg-purple-600 flex items-center justify-center text-3xl font-bold text-white">
