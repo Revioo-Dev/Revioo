@@ -214,27 +214,52 @@ return (
 
             <div
   ref={qrCardRef}
-  className="mt-8 w-full max-w-sm rounded-3xl p-8 text-center shadow-2xl overflow-hidden relative"
-  style={{
-    backgroundImage: `linear-gradient(rgba(255,255,255,0.93), rgba(255,255,255,0.93)), url(${backgroundImage})`,
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-  }}
+  className="relative mt-8 w-full max-w-md overflow-hidden rounded-[40px] bg-white shadow-2xl p-8"
 >
 
-  <div className="mx-auto mb-4 h-16 w-16 rounded-2xl bg-purple-600 flex items-center justify-center text-3xl font-bold text-white">
-    {business.business_name?.charAt(0)}
+  {/* City Map Background */}
+  <img
+    src={backgroundImage}
+    alt=""
+    className="absolute inset-0 w-full h-full object-cover opacity-10"
+  />
+
+  {/* Purple Glow */}
+  <div className="absolute -top-28 left-1/2 h-64 w-64 -translate-x-1/2 rounded-full bg-purple-500 blur-3xl opacity-25"></div>
+
+  {/* Content */}
+  <div className="relative z-10 text-center">
+
+    <div className="mx-auto mb-4 h-16 w-16 rounded-2xl bg-purple-600 flex items-center justify-center text-3xl font-bold text-white shadow-lg">
+      {business.business_name?.charAt(0)}
+    </div>
+
+    <h2 className="text-2xl font-bold text-black">
+      {business.business_name}
+    </h2>
+
+    <p className="mt-1 text-gray-600">
+      {business.category}
+    </p>
+
+    <div className="mt-6 flex justify-center">
+      <QRCodeSVG
+        value={business.google_review_link || ""}
+        size={200}
+      />
+    </div>
+
+    <p className="mt-5 text-sm font-semibold text-black">
+      ⭐ Scan to leave us a Google Review
+    </p>
+
+    <p className="mt-2 text-xs text-gray-500">
+      Powered by <span className="font-semibold text-purple-600">Revioo</span>
+    </p>
+
   </div>
 
-
-  <h2 className="text-2xl font-bold">
-    {business.business_name}
-  </h2>
-
-
-  <p className="mt-1 text-gray-600">
-    {business.category}
-  </p>
+</div>
 
 
   <div className="mt-6 flex justify-center">
