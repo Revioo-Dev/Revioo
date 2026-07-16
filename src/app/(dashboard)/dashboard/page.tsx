@@ -212,51 +212,54 @@ export default function DashboardPage() {
                 style={{ height: CARD_HEIGHT * scale + 6 }}
               >
                 {/* The actual card, always laid out at true 1023x1537,
-                    visually scaled down to fit the wrapper. */}
-                <div
-                  ref={qrCardRef}
-                  className="relative bg-gradient-to-b from-purple-200 via-purple-100 to-purple-50 rounded-[40px] overflow-hidden"
-                  style={{
-                    width: CARD_WIDTH,
-                    height: CARD_HEIGHT,
-                    transform: `scale(${scale})`,
-                    transformOrigin: "top left",
-                  }}
-                >
-                  <img
-  src={backgroundImage}
-  alt=""
-  className="absolute inset-0 w-full h-full object-cover opacity-10"
-/>
+    visually scaled down to fit the wrapper. */}
+<div
+  ref={qrCardRef}
+  className="relative bg-gradient-to-b from-purple-200 via-purple-100 to-purple-50 rounded-[40px] overflow-hidden"
+  style={{
+    width: CARD_WIDTH,
+    height: CARD_HEIGHT,
+    transform: `scale(${scale})`,
+    transformOrigin: "top left",
+  }}
+>
+  {/* Background */}
+  <img
+    src={backgroundImage}
+    alt=""
+    className="absolute inset-0 w-full h-full object-cover opacity-10"
+  />
 
-<div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-white/70 to-transparent" />
+  <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-white/70 to-transparent" />
 
-{/* Purple Spotlights */}
-<div className="absolute -top-24 -left-24 h-96 w-96 rounded-full bg-purple-500/25 blur-[140px]" />
+  {/* Purple Spotlights */}
+  <div className="absolute -top-24 -left-24 h-96 w-96 rounded-full bg-purple-500/25 blur-[140px]" />
+  <div className="absolute top-20 -right-24 h-80 w-80 rounded-full bg-fuchsia-500/20 blur-[120px]" />
+  <div className="absolute bottom-24 left-1/2 -translate-x-1/2 h-[420px] w-[420px] rounded-full bg-violet-500/20 blur-[150px]" />
 
-<div className="absolute top-20 -right-24 h-80 w-80 rounded-full bg-fuchsia-500/20 blur-[120px]" />
+  {/* Card Content */}
+  <div className="relative z-10 flex h-full flex-col px-20 pt-16 pb-10">
 
-<div className="absolute bottom-24 left-1/2 -translate-x-1/2 h-[420px] w-[420px] rounded-full bg-violet-500/20 blur-[150px]" />
+    <div className="flex items-start justify-between">
+      <div className="h-24 w-24 rounded-3xl bg-purple-600 flex items-center justify-center text-5xl font-bold text-white shadow-lg">
+        {business.business_name?.charAt(0)}
+      </div>
 
-                  <div className="relative z-10 flex h-full flex-col px-20 pt-16 pb-10">
-                    <div className="flex items-start justify-between">
-                      <div className="h-24 w-24 rounded-3xl bg-purple-600 flex items-center justify-center text-5xl font-bold text-white shadow-lg">
-                        {business.business_name?.charAt(0)}
-                      </div>
+      <div className="flex flex-col items-center text-purple-600">
+        <span className="text-3xl">📍</span>
+        <span className="text-xl font-bold uppercase">
+          {business.city}
+        </span>
+      </div>
+    </div>
 
-                      <div className="flex flex-col items-center text-purple-600">
-                        <span className="text-3xl">📍</span>
-                        <span className="text-xl font-bold uppercase">{business.city}</span>
-                      </div>
-                    </div>
-
-                    <div className="flex-1 text-center">
-                      <h2
-                        className={`${lora.className} mt-12 text-5xl uppercase tracking-wide text-black leading-tight`}
-                        style={{ fontWeight: 650 }}
-                      >
-                        {business.business_name}
-                      </h2>
+    <div className="flex-1 text-center">
+      <h2
+        className={`${lora.className} mt-12 text-5xl uppercase tracking-wide text-black leading-tight`}
+        style={{ fontWeight: 650 }}
+      >
+        {business.business_name}
+      </h2>
 
                       <div className="mt-8 inline-flex items-center gap-3 rounded-full border border-purple-200 bg-purple-50 px-8 py-4">
                         <span className="text-2xl">🏪</span>
