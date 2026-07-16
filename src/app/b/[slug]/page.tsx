@@ -71,7 +71,7 @@ const backgroundImage =
     className={`
   ${montserrat.className}
   inline-block
-  text-lg
+  text-xl
   md:text-2xl
   font-semibold
   tracking-widest
