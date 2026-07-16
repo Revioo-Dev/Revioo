@@ -1,6 +1,7 @@
 "use client";
 
 import { supabase } from "@/lib/supabase/client";
+import { redirect } from "next/navigation";
 import { useEffect, useState, useRef } from "react";
 import { QRCodeSVG } from "qrcode.react";
 import { toPng } from "html-to-image";
