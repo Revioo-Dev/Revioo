@@ -212,74 +212,103 @@ return (
 
             </div>
 
+            {/* Downloadable / On-Screen QR Review Card */}
             <div
-  ref={qrCardRef}
-  className="relative mt-8 w-full max-w-md overflow-hidden rounded-[40px] bg-white shadow-2xl p-8"
->
+              ref={qrCardRef}
+              className="relative mt-8 w-full max-w-md overflow-hidden rounded-[40px] bg-white shadow-2xl"
+            >
+              {/* City Map Background */}
+              <img
+                src={backgroundImage}
+                alt=""
+                className="absolute inset-0 w-full h-full object-cover opacity-10"
+              />
 
-  {/* City Map Background */}
-  <img
-    src={backgroundImage}
-    alt=""
-    className="absolute inset-0 w-full h-full object-cover opacity-10"
-  />
+              {/* City Tag (top right) */}
+              <div className="absolute top-6 right-6 z-10 flex flex-col items-center text-purple-500">
+                <span className="text-xl">📍</span>
+                <span className="text-xs font-bold uppercase tracking-wide">
+                  {business.city}
+                </span>
+              </div>
 
-  {/* Purple Glow */}
-  <div className="absolute -top-28 left-1/2 h-64 w-64 -translate-x-1/2 rounded-full bg-purple-500 blur-3xl opacity-25"></div>
+              <div className="relative z-10 px-8 pt-10 pb-4 text-center">
 
-  {/* Content */}
-  <div className="relative z-10 text-center">
+                {/* Logo */}
+                <div className="mx-auto mb-4 h-16 w-16 rounded-2xl bg-gradient-to-br from-purple-600 to-purple-700 flex items-center justify-center text-3xl font-bold text-white shadow-lg">
+                  {business.business_name?.charAt(0)}
+                </div>
 
-    <div className="mx-auto mb-4 h-16 w-16 rounded-2xl bg-purple-600 flex items-center justify-center text-3xl font-bold text-white shadow-lg">
-      {business.business_name?.charAt(0)}
-    </div>
+                <h2 className="text-2xl font-bold text-black">
+                  {business.business_name}
+                </h2>
 
-    <h2 className="text-2xl font-bold text-black">
-  {business.business_name}
-</h2>
+                {/* Category pill */}
+                <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-purple-200 bg-purple-50 px-4 py-1.5">
+                  <span>🏪</span>
+                  <span className="text-sm font-semibold text-purple-600">
+                    {business.category}
+                  </span>
+                </div>
 
-<p className="mt-1 text-gray-600">
-  {business.category}
-</p>
+                {/* Divider with heart */}
+                <div className="mt-5 flex items-center justify-center gap-3">
+                  <span className="h-px w-16 bg-purple-200"></span>
+                  <span className="text-purple-500">♥</span>
+                  <span className="h-px w-16 bg-purple-200"></span>
+                </div>
 
-<div className="mt-4 flex items-center justify-center gap-1 text-yellow-500 text-xl">
-  ⭐⭐⭐⭐⭐
-</div>
+                <p className="mt-3 text-xs font-semibold tracking-widest text-gray-500 uppercase">
+                  Your feedback helps us grow
+                </p>
 
-<p className="mt-2 text-sm text-gray-500">
-  We'd love your feedback on Google
-</p>
+                {/* QR Code */}
+                <div className="mt-6 flex justify-center">
+                  <div className="rounded-3xl border-2 border-purple-100 bg-white p-5 shadow-xl">
+                    <QRCodeSVG
+                      value={business.google_review_link || ""}
+                      size={200}
+                    />
+                  </div>
+                </div>
 
-<div className="mt-8 flex justify-center">
-  <div className="rounded-3xl border-2 border-purple-200 bg-white p-5 shadow-xl">
+                {/* Google review line */}
+                <div className="mt-6 flex items-center justify-center gap-2">
+                  <div className="h-8 w-8 rounded-full bg-white shadow flex items-center justify-center text-lg">
+                    🔍
+                  </div>
+                  <p className="text-sm text-gray-700">
+                    Scan to review us on{" "}
+                    <span className="font-bold text-purple-600">Google</span>
+                  </p>
+                </div>
+              </div>
 
-    <QRCodeSVG
-      value={business.google_review_link || ""}
-      size={200}
-    />
+              {/* Bottom purple curve footer */}
+              <div className="relative mt-4">
+                <svg
+                  viewBox="0 0 500 80"
+                  className="w-full h-16 block"
+                  preserveAspectRatio="none"
+                >
+                  <path d="M0,40 C150,90 350,0 500,40 L500,80 L0,80 Z" fill="#7C3AED" />
+                </svg>
+                <div className="absolute inset-0 flex flex-col items-center justify-end pb-4 text-white">
+                  <div className="flex items-center gap-1 text-xs">
+                    <span>⭐</span>
+                    <span>Powered by</span>
+                  </div>
+                  <span className="text-lg font-bold leading-tight">Revioo</span>
+                </div>
+              </div>
+            </div>
 
-  </div>
-</div>
-
-    <p className="mt-5 text-sm font-semibold text-black">
-      ⭐ Scan to leave us a Google Review
-    </p>
-
-    <p className="mt-2 text-xs text-gray-500">
-      Powered by <span className="font-semibold text-purple-600">Revioo</span>
-    </p>
-
-  </div>
-
-</div>
-
-
-<button
-  onClick={downloadQRCard}
-  className="mt-5 rounded-xl bg-purple-600 px-6 py-3 font-semibold text-white"
->
-  Download Review Card
-</button>
+            <button
+              onClick={downloadQRCard}
+              className="mt-5 rounded-xl bg-purple-600 px-6 py-3 font-semibold text-white"
+            >
+              Download Review Card
+            </button>
 
 
 
