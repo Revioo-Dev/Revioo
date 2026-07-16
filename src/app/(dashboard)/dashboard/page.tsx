@@ -72,48 +72,44 @@ export default function DashboardPage() {
   }
 
   useEffect(() => {
-    async function getBusiness() {
-      const {
-  data: { user },
-} = await supabase.auth.getUser();
+  async function getBusiness() {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
 
-if (!user) return;
+    if (!user) return;
 
-const { data: subscription } = await supabase
-  .from("subscriptions")
-  .select("*")
-  .eq("user_id", user.id)
-  .single();
+    const { data: subscription } = await supabase
+      .from("subscriptions")
+      .select("*")
+      .eq("user_id", user.id)
+      .single();
 
-if (!subscription) {
-  redirect("/pricing");
-}
-
-const { data, error } = await supabase
-  .from("businesses")
-  .select("*")
-  .eq("owner_id", user.id)
-  .order("created_at", { ascending: false })
-  .limit(1);
-
-      const { data, error } = await supabase
-        .from("businesses")
-        .select("*")
-        .eq("owner_id", user.id)
-        .order("created_at", { ascending: false })
-        .limit(1);
-
-      if (error) {
-        console.log(error.message);
-        return;
-      }
-
-      setBusiness(data?.[0] ?? null);
-      console.log(data?.[0]);
+    if (!subscription) {
+      // redirect("/pricing");  // Make sure 'redirect' is imported from 'next/navigation'
+      return; // Or use redirect if imported
     }
 
-    getBusiness();
-  }, []);
+    // Get the most recent business (no duplicate)
+    const { data, error } = await supabase
+      .from("businesses")
+      .select("*")
+      .eq("owner_id", user.id)
+      .order("created_at", { ascending: false })
+      .limit(1);
+
+    if (error) {
+      console.log(error.message);
+      return;
+    }
+
+    setBusiness(data?.[0] ?? null);
+    console.log(data?.[0]);
+  }
+
+  getBusiness();
+}, []);
+
 
   if (!business) {
     return (
