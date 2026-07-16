@@ -1,3 +1,14 @@
+import { Lora, Montserrat } from "next/font/google";
+
+const lora = Lora({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
+
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
 import { createClient } from "@/lib/supabase/server";
 import { notFound } from "next/navigation";
 import Image from "next/image";
@@ -37,10 +48,10 @@ console.log("BUSINESS DATA:", JSON.stringify(business));
   return (
     <div className="min-h-screen bg-gray-50">
 
-      <h1 className="text-3xl text-red-500">
+      <h1 className={`${montserrat.className} text-3xl text-red-500 font-semibold`}>
   REVIOO ~ Build Trust • Get Discovered
 </h1>
-      <h2 className="text-2xl text-black">
+      <h2 className={`${lora.className} text-2xl text-black font-bold`}>
   {business?.business_name || "NO BUSINESS FOUND"}
 </h2>
 
@@ -59,9 +70,9 @@ console.log("BUSINESS DATA:", JSON.stringify(business));
               </div>
             )}
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">
-                {business.business_name}
-              </h1>
+              <h1 className={`${lora.className} text-2xl font-bold text-gray-900`}>
+  {business.business_name}
+</h1>
               {business.category && (
                 <p className="text-sm text-purple-600 font-medium">
                   {business.category}
