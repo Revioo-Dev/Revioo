@@ -245,9 +245,10 @@ export default function DashboardPage() {
                 className="rounded-[42px] p-[3px] bg-gradient-to-br from-purple-300 via-white to-purple-400 shadow-[0_25px_60px_-15px_rgba(124,58,237,0.5)]"
               >
                 <div
-                  ref={qrCardRef}
-className="relative w-full overflow-hidden rounded-[40px] bg-gradient-to-b from-purple-100 via-purple-50 to-white min-h-[650px]"
-                  {/* City Map Background */}
+  ref={qrCardRef}
+  className="relative w-full overflow-hidden rounded-[40px] bg-gradient-to-b from-purple-100 via-purple-50 to-white min-h-[650px]"
+>
+  {/* City Map Background */}
                   <img
                     src={backgroundImage}
                     alt=""
