@@ -10,7 +10,7 @@ const footerLinks = {
 export default function Footer() {
   return (
     <footer className="border-t border-white/5 mt-24">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-40 pb-16">
         <div className="grid grid-cols-1 md:grid-cols-5 gap-10">
           {/* Brand */}
           <div className="md:col-span-2">
@@ -72,6 +72,45 @@ export default function Footer() {
           </p>
         </div>
       </div>
-    </footer>
-  );
-}
+    <footer className="relative mt-24 overflow-hidden border-t border-white/10 bg-gradient-to-b from-[#12061f] via-[#1a0d2f] to-black">
+  {/* 3D Purple Glow */}
+  <div className="absolute -top-24 left-1/2 h-80 w-[900px] -translate-x-1/2 rounded-full bg-purple-600/30 blur-[120px]" />
+
+  {/* Large glossy wave */}
+  <div className="absolute top-0 left-0 w-full overflow-hidden leading-none">
+    <svg
+      viewBox="0 0 1440 220"
+      className="w-full h-[220px]"
+      preserveAspectRatio="none"
+    >
+      <defs>
+        <linearGradient id="footerWave" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#c084fc" />
+          <stop offset="45%" stopColor="#8b5cf6" />
+          <stop offset="100%" stopColor="#4c1d95" />
+        </linearGradient>
+
+        <linearGradient id="waveGloss" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="rgba(255,255,255,0.65)" />
+          <stop offset="100%" stopColor="rgba(255,255,255,0)" />
+        </linearGradient>
+      </defs>
+
+      <path
+        d="M0,80 C240,200 520,0 760,90 C980,170 1180,20 1440,100 L1440,0 L0,0 Z"
+        fill="url(#footerWave)"
+      />
+
+      <path
+        d="M0,75 C240,185 520,10 760,85 C980,160 1180,30 1440,95"
+        stroke="url(#waveGloss)"
+        strokeWidth="6"
+        fill="none"
+      />
+    </svg>
+  </div>
+
+  <div className="relative z-10">
+    {/* Your existing footer content goes here */}
+  </div>
+</footer>
