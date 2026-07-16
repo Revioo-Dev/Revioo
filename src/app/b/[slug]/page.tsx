@@ -58,7 +58,7 @@ const backgroundImage =
     <div
   className="relative min-h-screen overflow-hidden"
   style={{
-  backgroundImage: `linear-gradient(rgba(255,255,255,0.10), rgba(255,255,255,0.10)), url(${backgroundImage})`,
+  backgroundImage: `linear-gradient(rgba(255,255,255,0.20), rgba(255,255,255,0.20)), url(${backgroundImage})`,
   backgroundSize: "cover",
   backgroundPosition: "center",
   backgroundRepeat: "no-repeat",
