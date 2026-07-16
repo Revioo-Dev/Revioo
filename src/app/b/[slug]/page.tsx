@@ -21,7 +21,7 @@ const { data } = await supabase
 
 const business = data as any;
 
-console.log("BUSINESS DATA:", business);
+<h1>{JSON.stringify(business)}</h1>
 
   if (!business) {
     notFound();
