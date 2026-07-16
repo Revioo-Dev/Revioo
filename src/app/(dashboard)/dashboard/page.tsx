@@ -11,37 +11,38 @@ export default function DashboardPage() {
   const qrCardRef = useRef<HTMLDivElement>(null);
 
   async function downloadQRCard() {
-    if (!qrCardRef.current) return;
+  if (!qrCardRef.current) return;
 
-    try {
-      const node = qrCardRef.current;
-      const targetWidth = 1600;
+  try {
+    const node = qrCardRef.current;
 
-      const rect = node.getBoundingClientRect();
-      const scale = targetWidth / rect.width;
-      const targetHeight = Math.round(rect.height * scale);
+    const targetWidth = 1023;
+    const targetHeight = 1537;
 
-      const dataUrl = await toPng(node, {
-  cacheBust: true,
-  pixelRatio: 3,
-  backgroundColor: "#ffffff",
-  width: node.scrollWidth,
-  height: node.scrollHeight,
-  style: {
-    transform: "none",
-  },
-});
+    const dataUrl = await toPng(node, {
+      cacheBust: true,
+      width: targetWidth,
+      height: targetHeight,
+      pixelRatio: 1,
+      backgroundColor: "#f3e8ff",
+      style: {
+        width: `${targetWidth}px`,
+        height: `${targetHeight}px`,
+        transform: "none",
+        transformOrigin: "top left",
+      },
+    });
 
-      const link = document.createElement("a");
-      link.download = `${business.business_name}-review-card.png`;
-      link.href = dataUrl;
-      link.click();
+    const link = document.createElement("a");
+    link.download = `${business.business_name}-review-card.png`;
+    link.href = dataUrl;
+    link.click();
 
-    } catch (error) {
-      console.log(error);
-      alert("Could not download QR card");
-    }
+  } catch (error) {
+    console.log(error);
+    alert("Could not download QR card");
   }
+}
 
   useEffect(() => {
     async function getBusiness() {
@@ -246,7 +247,7 @@ export default function DashboardPage() {
               >
                 <div
   ref={qrCardRef}
-  className="relative w-full overflow-hidden rounded-[40px] bg-gradient-to-b from-purple-100 via-purple-50 to-white min-h-[650px]"
+  className="relative aspect-[1023/1537] w-full overflow-hidden rounded-[40px] bg-gradient-to-b from-purple-200 via-purple-100 to-purple-50"
 >
   {/* City Map Background */}
                   <img
@@ -262,7 +263,7 @@ export default function DashboardPage() {
                   {/* Soft top highlight to fake an embossed/glass surface */}
                   <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-white/70 to-transparent pointer-events-none" />
 
-                <div className="relative z-10 px-8 pt-10 pb-4">
+                <div className="relative z-10 flex h-full flex-col px-8 pt-10 pb-4">
 
                   {/* Header row: logo left, city tag right — no overlap */}
                   <div className="flex items-start justify-between">
@@ -280,7 +281,7 @@ export default function DashboardPage() {
 
                   </div>
 
-                  <div className="text-center">
+                  <div className="flex-1 text-center">
 
                     <h2 className="mt-4 text-2xl font-bold text-black">
                       {business.business_name}
@@ -310,9 +311,9 @@ export default function DashboardPage() {
                       <div className="relative rounded-3xl border-2 border-purple-100 bg-white p-5 shadow-[inset_0_1px_3px_rgba(0,0,0,0.06),0_8px_20px_-8px_rgba(124,58,237,0.35)]">
                         <div className="absolute inset-x-3 top-1 h-4 rounded-full bg-white/70 blur-[2px] pointer-events-none" />
                         <QRCodeSVG
-                          value={business.google_review_link || ""}
-                          size={200}
-                        />
+  value={business.google_review_link || ""}
+  size={170}
+/>
                       </div>
                     </div>
 
