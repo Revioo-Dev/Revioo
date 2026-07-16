@@ -5,6 +5,8 @@ import { useEffect, useState, useRef } from "react";
 import { QRCodeSVG } from "qrcode.react";
 import { toPng } from "html-to-image";
 import { Lora } from "next/font/google";
+import CatalogueManager from "@/components/CatalogueManager";
+
 
 const lora = Lora({ subsets: ["latin"], weight: "variable" });
 
@@ -170,7 +172,7 @@ export default function DashboardPage() {
               </div>
             </div>
 
-            {/* Google Review + QR Section */}
+                        {/* Google Review + QR Section */}
             <div className="mt-8 rounded-3xl bg-purple-600/20 border border-purple-500/30 p-6">
               <h3 className="text-2xl font-bold">Google Reviews</h3>
               <p className="text-gray-300 mt-2 mb-5">
@@ -186,8 +188,11 @@ export default function DashboardPage() {
               </a>
             </div>
 
+            <CatalogueManager businessId={business.id} />
+
             {/* QR REVIEW CARD */}
             <div className="mt-8 flex flex-col items-center">
+
               {/* Outer border/frame — sized responsively based on scale */}
               <div
                 ref={cardWrapperRef}
