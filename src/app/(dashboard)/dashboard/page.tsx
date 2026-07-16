@@ -74,10 +74,28 @@ export default function DashboardPage() {
   useEffect(() => {
     async function getBusiness() {
       const {
-        data: { user },
-      } = await supabase.auth.getUser();
+  data: { user },
+} = await supabase.auth.getUser();
 
-      if (!user) return;
+if (!user) return;
+
+const { data: subscription } = await supabase
+  .from("subscriptions")
+  .select("status")
+  .eq("user_id", user.id)
+  .single();
+
+if (!subscription || subscription.status !== "active") {
+  window.location.href = "/pricing";
+  return;
+}
+
+const { data, error } = await supabase
+  .from("businesses")
+  .select("*")
+  .eq("owner_id", user.id)
+  .order("created_at", { ascending: false })
+  .limit(1);
 
       const { data, error } = await supabase
         .from("businesses")
