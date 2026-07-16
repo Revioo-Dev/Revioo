@@ -3,32 +3,18 @@ import { CheckCircle, Star, Zap, Crown } from "lucide-react";
 
 const plans = [
   {
-    name: "Explore",
-    price: "Free",
-    icon: Star,
-    badge: "Perfect for getting started",
-    button: "Get Started",
-    featured: false,
-    features: [
-      "1 Business Profile",
-      "QR Code Generator",
-      "Basic Review Dashboard",
-      "Up to 25 Reviews",
-      "Email Support",
-    ],
-  },
-  {
     name: "Starter",
     price: "Rs. 1,000",
-    duration: "/30 Days",
+    duration: "/1 Month",
     icon: Zap,
-    badge: "Most Popular",
+    badge: "Best Value",
     button: "Choose Starter",
-    featured: true,
+    featured: false,
     features: [
       "Everything in Explore",
       "Unlimited Reviews",
       "Custom QR Designs",
+      "Upload your catalogue",
       "Google Review Analytics",
       "AI Review Replies",
       "Priority Support",
@@ -36,23 +22,23 @@ const plans = [
   },
   {
     name: "Professional",
-    price: "Rs. 5,000",
-    duration: "/180 Days",
+    price: "Rs. 3,000",
+    duration: "/6 Months",
     icon: Crown,
-    badge: "Best Value",
+    badge: "Most Popular",
     button: "Choose Professional",
-    featured: false,
+    featured: true,
     features: [
       "Everything in Starter",
+      "Upload your catalogue",
       "Multiple Locations",
-      "Team Members",
+      "6 Months Guaranteed Access",
       "Advanced Analytics",
       "Review Widgets",
       "API Access",
     ],
   },
 ];
-
 export default function PricingPage() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-[#0f0b1f] via-[#130d29] to-black text-white">
