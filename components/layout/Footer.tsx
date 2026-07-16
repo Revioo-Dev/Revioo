@@ -11,13 +11,13 @@ export default function Footer() {
   return (
     <footer className="relative mt-24 overflow-hidden border-t border-white/10 bg-gradient-to-b from-[#12061f] via-[#1a0d2f] to-black">
   {/* Purple glow */}
-  <div className="absolute -top-24 left-1/2 h-80 w-[900px] -translate-x-1/2 rounded-full bg-purple-600/30 blur-[120px]" />
+  <div className="absolute -bottom-24 left-1/2 h-80 w-[900px] -translate-x-1/2 rounded-full bg-purple-600/30 blur-[120px]" />
 
   {/* Glossy wave */}
-  <div className="absolute top-0 left-0 w-full overflow-hidden leading-none">
+  <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none">
     <svg
       viewBox="0 0 1440 220"
-      className="w-full h-[220px]"
+      className="w-full h-[220px] rotate-180"
       preserveAspectRatio="none"
     >
       <defs>
@@ -46,7 +46,7 @@ export default function Footer() {
       />
     </svg>
   </div>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-40 pb-16">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-40">
         <div className="grid grid-cols-1 md:grid-cols-5 gap-10">
           {/* Brand */}
           <div className="md:col-span-2">
