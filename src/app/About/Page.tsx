@@ -17,7 +17,7 @@ export default function About() {
     {
       icon: Users,
       title: 'Customer Success',
-      description: 'Your success is our success. We're committed to your growth'
+      description: 'Your success is our success. We are committed to your growth'
     },
     {
       icon: Heart,
@@ -35,24 +35,9 @@ export default function About() {
 
   const team = [
     {
-      name: 'Ahmed Khan',
+      name: 'Ali Hassan Chanio',
       role: 'CEO & Co-founder',
-      bio: 'Serial entrepreneur with 10+ years in AI and customer experience'
-    },
-    {
-      name: 'Sarah Johnson',
-      role: 'CTO & Co-founder',
-      bio: 'AI/ML expert previously at leading tech companies'
-    },
-    {
-      name: 'Marcus Smith',
-      role: 'Head of Product',
-      bio: 'Product strategist focused on user-centric solutions'
-    },
-    {
-      name: 'Elena Rodriguez',
-      role: 'Head of Customer Success',
-      bio: 'Dedicated to ensuring every client achieves their goals'
+      bio: 'Serial entrepreneur with 1 years in AI and customer experience'
     }
   ];
 
@@ -63,7 +48,7 @@ export default function About() {
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-4xl sm:text-5xl font-bold mb-6">About Revioo</h1>
           <p className="text-xl text-gray-300">
-            Empowering businesses to turn customer feedback into competitive advantage
+            Empowering businesses to turn customer feedback into competitive advantage📈
           </p>
         </div>
       </div>
@@ -75,13 +60,13 @@ export default function About() {
             <h2 className="text-3xl font-bold mb-4">Our Story</h2>
             <div className="space-y-4 text-gray-300">
               <p>
-                Revioo was born from a simple observation: businesses sit on goldmines of customer feedback, yet struggle to extract actionable insights. Traditional review management tools were outdated, slow, and difficult to use.
+                𝑹𝑬𝑽𝑰𝑶𝑶 was born from a simple observation: businesses sit on goldmines of customer feedback, yet struggle to extract actionable insights. Traditional review management tools were outdated, slow, and difficult to use.
               </p>
               <p>
-                In 2023, our founding team came together with a mission to revolutionize how businesses interact with customer reviews. We built Revioo with cutting-edge AI technology to automatically analyze sentiment, identify trends, and suggest strategic responses.
+                In 2026, our founding Co came with a mission to revolutionize how businesses interact with customer reviews. We built 𝑹𝑬𝑽𝑰𝑶𝑶 with cutting-edge AI technology to automatically analyze sentiment, identify trends, and suggest strategic responses.
               </p>
               <p>
-                Today, over 500 businesses across 30+ countries trust Revioo to manage their reputation and drive growth through authentic customer feedback.
+                Today, over 500 businesses across all over the country trust 𝑹𝑬𝑽𝑰𝑶𝑶 to manage their reputation and drive growth through authentic customer feedback.
               </p>
             </div>
           </div>
@@ -172,7 +157,6 @@ export default function About() {
                 href="mailto:careers@revioo.app"
                 className="px-8 py-3 rounded-lg border border-purple-500/50 hover:border-purple-500 font-semibold transition-all duration-300"
               >
-                We're Hiring
               </a>
             </div>
           </div>
