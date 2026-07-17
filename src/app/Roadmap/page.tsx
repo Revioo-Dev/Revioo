@@ -5,7 +5,7 @@ import { CheckCircle, Circle, Zap } from 'lucide-react';
 export default function Roadmap() {
   const roadmapItems = [
     {
-      quarter: 'Q3 2024',
+      quarter: 'Plan 1',
       status: 'completed',
       features: [
         'AI-powered sentiment analysis',
@@ -15,7 +15,7 @@ export default function Roadmap() {
       ]
     },
     {
-      quarter: 'Q4 2024',
+      quarter: 'Plan 2',
       status: 'in-progress',
       features: [
         'Advanced filtering & search',
@@ -25,7 +25,7 @@ export default function Roadmap() {
       ]
     },
     {
-      quarter: 'Q1 2025',
+      quarter: 'Plan 3',
       status: 'planned',
       features: [
         'Mobile app launch (iOS & Android)',
@@ -34,6 +34,21 @@ export default function Roadmap() {
         'Competitive analysis tool'
       ]
     },
-    {
-      quarter: 'Q2 2025',
-      status: 'planned
+       {
+      quarter: 'Plan 4',
+      status: 'planned',
+      features: [
+        'Advanced AI insights',
+        'Team collaboration features',
+        'Custom reporting',
+        'Automation tools'
+      ]
+    }
+  ];
+
+  return (
+    <div>
+      {/* Your roadmap UI here */}
+    </div>
+  );
+}
