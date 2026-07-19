@@ -98,11 +98,14 @@ if (!subscription) {
 }
     // Get the most recent business (no duplicate)
     const { data, error } = await supabase
-      .from("businesses")
-      .select("*")
-      .eq("owner_id", user.id)
-      .order("created_at", { ascending: false })
-      .limit(1);
+  .from("businesses")
+  .select("*")
+  .eq("owner_id", user.id)
+  .order("created_at", { ascending: false })
+  .limit(1);
+
+alert("Business data: " + JSON.stringify(data));
+alert("Business error: " + JSON.stringify(error));
     console.log("Business:", data);
 console.log("Error:", error);
 
