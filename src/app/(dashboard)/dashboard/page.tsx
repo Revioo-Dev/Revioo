@@ -85,11 +85,17 @@ const [loading, setLoading] = useState(true);
   return;
 }
 
-    const { data: subscription } = await supabase
+    const {
+  data: subscription,
+  error: subscriptionError,
+} = await supabase
   .from("subscriptions")
   .select("*")
   .eq("user_id", user.id)
   .single();
+
+alert("Subscription: " + JSON.stringify(subscription));
+alert("Subscription Error: " + JSON.stringify(subscriptionError));
 
 if (!subscription) {
   setLoading(false);
