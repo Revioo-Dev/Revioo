@@ -78,20 +78,24 @@ const [loading, setLoading] = useState(true);
     const {
       data: { user },
     } = await supabase.auth.getUser();
+    console.log("User:", user);
 
-    if (!user) return;
+    if (!user) {
+  setLoading(false);
+  return;
+}
 
     const { data: subscription } = await supabase
-      .from("subscriptions")
-      .select("*")
-      .eq("user_id", user.id)
-      .single();
+  .from("subscriptions")
+  .select("*")
+  .eq("user_id", user.id)
+  .single();
 
-    if (!subscription) {
-      // redirect("/pricing");  // Make sure 'redirect' is imported from 'next/navigation'
-      return; // Or use redirect if imported
-    }
-
+if (!subscription) {
+  setLoading(false);
+  // redirect("/pricing");
+  return;
+}
     // Get the most recent business (no duplicate)
     const { data, error } = await supabase
       .from("businesses")
@@ -99,13 +103,17 @@ const [loading, setLoading] = useState(true);
       .eq("owner_id", user.id)
       .order("created_at", { ascending: false })
       .limit(1);
+    console.log("Business:", data);
+console.log("Error:", error);
 
     if (error) {
-      console.log(error.message);
-      return;
-    }
+  console.log(error.message);
+  setLoading(false);
+  return;
+}
 
-    setBusiness(data?.[0] ?? null);
+setBusiness(data?.[0] ?? null);
+setLoading(false);
     console.log(data?.[0]);
   }
 
@@ -113,14 +121,25 @@ const [loading, setLoading] = useState(true);
 }, []);
 
 
-  if (!business) {
-    return (
-      <main className="min-h-screen flex items-center justify-center bg-black text-white">
-        <h1 className="text-xl">Loading business...</h1>
-      </main>
-    );
-  }
+  if (loading) {
+  return (
+    <main className="min-h-screen flex items-center justify-center bg-black text-white">
+      <h1 className="text-xl">
+        Loading business...
+      </h1>
+    </main>
+  );
+}
 
+if (!business) {
+  return (
+    <main className="min-h-screen flex items-center justify-center bg-black text-white">
+      <h1 className="text-xl">
+        No business found.
+      </h1>
+    </main>
+  );
+}
   const cityBackgrounds: Record<string, string> = {
     mirpurkhas: "/backgrounds/mirpurkhas-map.png",
     karachi: "/backgrounds/karachi-map.png",
