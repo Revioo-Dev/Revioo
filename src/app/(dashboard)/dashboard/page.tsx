@@ -133,10 +133,23 @@ setLoading(false);
 
 if (!business) {
   return (
-    <main className="min-h-screen flex items-center justify-center bg-black text-white">
-      <h1 className="text-xl">
+    <main className="min-h-screen flex flex-col items-center justify-center bg-black text-white p-6">
+      <h1 className="text-xl mb-4">
         No business found.
       </h1>
+
+      <button
+        onClick={async () => {
+          const {
+            data: { user },
+          } = await supabase.auth.getUser();
+
+          alert(`User ID: ${user?.id}`);
+        }}
+        className="rounded-lg bg-purple-600 px-5 py-3"
+      >
+        Show My User ID
+      </button>
     </main>
   );
 }
