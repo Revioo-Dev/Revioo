@@ -85,21 +85,18 @@ const [loading, setLoading] = useState(true);
   return;
 }
 
-    const {
-  data: subscription,
-  error: subscriptionError,
-} = await supabase
+    const { data: subscription, error: subscriptionError } = await supabase
   .from("subscriptions")
   .select("*")
-  .eq("user_id", user.id)
-  .single();
+  .eq("user_id", user.id);
 
-alert("Subscription: " + JSON.stringify(subscription));
+alert("Subscription Data: " + JSON.stringify(subscription));
 alert("Subscription Error: " + JSON.stringify(subscriptionError));
 
-if (!subscription) {
+
+
+if (!subscription || subscription.length === 0) {
   setLoading(false);
-  // redirect("/pricing");
   return;
 }
     // Get the most recent business (no duplicate)
