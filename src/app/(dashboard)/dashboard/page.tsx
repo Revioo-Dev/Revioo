@@ -16,6 +16,7 @@ const CARD_HEIGHT = 1537;
 
 export default function DashboardPage() {
   const [business, setBusiness] = useState<any>(null);
+const [loading, setLoading] = useState(true);
   const [scale, setScale] = useState(1);
   const [siteOrigin, setSiteOrigin] = useState("");
 
