@@ -90,8 +90,6 @@ const [loading, setLoading] = useState(true);
   .select("*")
   .eq("user_id", user.id);
 
-alert("Subscription Data: " + JSON.stringify(subscription));
-alert("Subscription Error: " + JSON.stringify(subscriptionError));
 
 
 
@@ -107,8 +105,7 @@ if (!subscription || subscription.length === 0) {
   .order("created_at", { ascending: false })
   .limit(1);
 
-alert("Business data: " + JSON.stringify(data));
-alert("Business error: " + JSON.stringify(error));
+
     console.log("Business:", data);
 console.log("Error:", error);
 
@@ -153,8 +150,7 @@ if (!business) {
             .select("*")
             .eq("owner_id", user!.id);
 
-          alert("Business Data:\n" + JSON.stringify(data));
-          alert("Business Error:\n" + JSON.stringify(error));
+          
         }}
         className="rounded-lg bg-purple-600 px-5 py-3"
       >
