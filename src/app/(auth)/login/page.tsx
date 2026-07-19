@@ -16,11 +16,27 @@ export default function LoginPage() {
     });
 
     if (error) {
-      alert(error.message);
-    } else {
-      alert("Login successful!");
-      window.location.href = "/dashboard";
-    }
+  alert(error.message);
+  return;
+}
+
+const {
+  data: { user },
+} = await supabase.auth.getUser();
+
+const { data: admin } = await supabase
+  .from("admins")
+  .select("id")
+  .eq("user_id", user!.id)
+  .maybeSingle();
+
+alert("Login successful!");
+
+if (admin) {
+  window.location.href = "/admin";
+} else {
+  window.location.href = "/dashboard";
+}
   }
 
   return (
