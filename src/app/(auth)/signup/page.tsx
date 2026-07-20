@@ -7,27 +7,67 @@ export default function SignupPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [inviteCode, setInviteCode] = useState("");
 
-async function handleSignup(e: React.FormEvent) {
-  e.preventDefault();
+  async function handleSignup(e: React.FormEvent) {
+    e.preventDefault();
 
-  const { error } = await supabase.auth.signUp({
-    email,
-    password,
-    options: {
-      data: {
-        name,
-        role: "business_owner",
+    // Check Invite Code
+    const { data: codeData, error: codeError } = await supabase
+      .from("invite_codes")
+      .select("*")
+      .eq("code", inviteCode.trim().toUpperCase())
+      .maybeSingle();
+
+    if (codeError) {
+      alert(codeError.message);
+      return;
+    }
+
+    if (!codeData) {
+      alert("Invalid Invite Code.");
+      return;
+    }
+
+    if (codeData.used) {
+      alert("This Invite Code has already been used.");
+      return;
+    }
+
+    // Create Account
+    const {
+      data: signupData,
+      error: signupError,
+    } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: {
+          name,
+          role: "business_owner",
+        },
       },
-    },
-  });
+    });
 
-  if (error) {
-    alert(error.message);
-  } else {
-    alert("Account created successfully! Please check your email.");
+    if (signupError) {
+      alert(signupError.message);
+      return;
+    }
+
+    // Mark Invite Code as Used
+    await supabase
+      .from("invite_codes")
+      .update({
+        used: true,
+        used_by: signupData.user?.id,
+        used_at: new Date().toISOString(),
+      })
+      .eq("id", codeData.id);
+
+    alert("Account created successfully!");
+
+    window.location.href = "/login";
   }
-}
 
   return (
     <div>
@@ -66,12 +106,12 @@ async function handleSignup(e: React.FormEvent) {
           value={name}
           onChange={(e) => setName(e.target.value)}
           style={{
-  padding: "12px",
-  borderRadius: "10px",
-  border: "1px solid #333",
-  color: "#000",
-  backgroundColor: "#fff",
-}}
+            padding: "12px",
+            borderRadius: "10px",
+            border: "1px solid #333",
+            color: "#000",
+            backgroundColor: "#fff",
+          }}
           required
         />
 
@@ -81,12 +121,12 @@ async function handleSignup(e: React.FormEvent) {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           style={{
-  padding: "12px",
-  borderRadius: "10px",
-  border: "1px solid #333",
-  color: "#000",
-  backgroundColor: "#fff",
-}}
+            padding: "12px",
+            borderRadius: "10px",
+            border: "1px solid #333",
+            color: "#000",
+            backgroundColor: "#fff",
+          }}
           required
         />
 
@@ -96,29 +136,56 @@ async function handleSignup(e: React.FormEvent) {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           style={{
-  padding: "12px",
-  borderRadius: "10px",
-  border: "1px solid #333",
-  color: "#000",
-  backgroundColor: "#fff",
-}}
+            padding: "12px",
+            borderRadius: "10px",
+            border: "1px solid #333",
+            color: "#000",
+            backgroundColor: "#fff",
+          }}
           required
         />
 
+        <input
+          type="text"
+          placeholder="Invite Code"
+          value={inviteCode}
+          onChange={(e) => setInviteCode(e.target.value.toUpperCase())}
+          style={{
+            padding: "12px",
+            borderRadius: "10px",
+            border: "1px solid #333",
+            color: "#000",
+            backgroundColor: "#fff",
+          }}
+          required
+        />
+
+        <p
+          style={{
+            textAlign: "center",
+            fontSize: "12px",
+            color: "#888",
+            marginTop: "-8px",
+          }}
+        >
+          Verify yourself via WhatsApp:
+          <strong> 03353727315</strong>
+        </p>
+
         <button
-  type="submit"
-  style={{
-    padding: "12px",
-    borderRadius: "10px",
-    border: "none",
-    cursor: "pointer",
-    background: "#7C3AED",
-    color: "#fff",
-    fontWeight: "bold",
-  }}
->
-  Create Account
-</button>
+          type="submit"
+          style={{
+            padding: "12px",
+            borderRadius: "10px",
+            border: "none",
+            cursor: "pointer",
+            background: "#7C3AED",
+            color: "#fff",
+            fontWeight: "bold",
+          }}
+        >
+          Create Account
+        </button>
       </form>
 
       <div
