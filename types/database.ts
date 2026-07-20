@@ -6,8 +6,6 @@ export type Json =
   | { [key: string]: Json | undefined }
   | Json[];
 
-// This mirrors the format produced by `supabase gen types typescript`.
-// Relationships: [] is required for supabase-js v2 typed client inference.
 export interface Database {
   public: {
     Tables: {
@@ -37,6 +35,7 @@ export interface Database {
         };
         Relationships: [];
       };
+
       reviews: {
         Row: {
           id: string;
@@ -78,16 +77,87 @@ export interface Database {
         };
         Relationships: [];
       };
+
+      admins: {
+        Row: {
+          id: string;
+          user_id: string;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          user_id: string;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          user_id?: string;
+          created_at?: string;
+        };
+        Relationships: [];
+      };
+
+      invite_codes: {
+        Row: {
+          id: string;
+          code: string;
+          plan: string | null;
+          used: boolean;
+          used_by: string | null;
+          created_by: string | null;
+          created_at: string;
+          used_at: string | null;
+        };
+        Insert: {
+          id?: string;
+          code: string;
+          plan?: string | null;
+          used?: boolean;
+          used_by?: string | null;
+          created_by?: string | null;
+          created_at?: string;
+          used_at?: string | null;
+        };
+        Update: {
+          id?: string;
+          code?: string;
+          plan?: string | null;
+          used?: boolean;
+          used_by?: string | null;
+          created_by?: string | null;
+          created_at?: string;
+          used_at?: string | null;
+        };
+        Relationships: [];
+      };
+
+      businesses: {
+        Row: Record<string, any>;
+        Insert: Record<string, any>;
+        Update: Record<string, any>;
+        Relationships: [];
+      };
+
+      subscriptions: {
+        Row: Record<string, any>;
+        Insert: Record<string, any>;
+        Update: Record<string, any>;
+        Relationships: [];
+      };
     };
+
     Views: {
       [_ in never]: never;
     };
+
     Functions: {
       [_ in never]: never;
     };
+
     Enums: {
       [_ in never]: never;
     };
+
     CompositeTypes: {
       [_ in never]: never;
     };
