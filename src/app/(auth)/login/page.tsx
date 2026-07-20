@@ -24,7 +24,7 @@ const {
   data: { user },
 } = await supabase.auth.getUser();
 
-const { data: admin, error } = await supabase
+const { data: admin, error: adminError } = await supabase
   .from("admins")
   .select("*")
   .eq("user_id", user!.id);
