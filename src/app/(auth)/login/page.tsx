@@ -24,20 +24,19 @@ const {
   data: { user },
 } = await supabase.auth.getUser();
 
-const { data: admin } = await supabase
+const { data: admin, error } = await supabase
   .from("admins")
-  .select("id")
-  .eq("user_id", user!.id)
-  .maybeSingle();
+  .select("*")
+  .eq("user_id", user!.id);
 
-alert("Login successful!");
+alert("Admin Data: " + JSON.stringify(admin));
+alert("Admin Error: " + JSON.stringify(error));
 
-if (admin) {
+if (admin && admin.length > 0) {
   window.location.href = "/admin";
 } else {
   window.location.href = "/dashboard";
-}
-  }
+}  }
 
   return (
     <div>
