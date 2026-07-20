@@ -30,7 +30,7 @@ const { data: admin, error: adminError } = await supabase
   .eq("user_id", user!.id);
 
 alert("Admin Data: " + JSON.stringify(admin));
-alert("Admin Error: " + JSON.stringify(error));
+alert("Admin Error: " + JSON.stringify(adminError));
 
 if (admin && admin.length > 0) {
   window.location.href = "/admin";
