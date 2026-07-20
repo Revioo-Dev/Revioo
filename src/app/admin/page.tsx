@@ -14,11 +14,15 @@ async function generateInviteCode() {
     data: { user },
   } = await supabase.auth.getUser();
 
-  const { error } = await supabase.from("invite_codes").insert({
-    code,
-    plan: "Business",
-    created_by: user?.id,
-  });
+  const { error } = await (supabase as any)
+  .from("invite_codes")
+  .insert([
+    {
+      code,
+      plan: "Business",
+      created_by: user?.id,
+    },
+  ]);
 
   if (error) {
     alert(error.message);
