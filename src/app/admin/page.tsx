@@ -7,6 +7,27 @@ export default function AdminPage() {
   const [loading, setLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
 
+async function generateInviteCode() {
+  const code = "RV-" + Math.random().toString(36).substring(2, 8).toUpperCase();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  const { error } = await supabase.from("invite_codes").insert({
+    code,
+    plan: "Business",
+    created_by: user?.id,
+  });
+
+  if (error) {
+    alert(error.message);
+    return;
+  }
+
+  alert("Invite Code Created:\n\n" + code);
+}
+  
   useEffect(() => {
     checkAdmin();
   }, []);
@@ -67,7 +88,22 @@ export default function AdminPage() {
         </div>
 
         <div className="rounded-2xl bg-zinc-900 p-6">
-          <h2 className="text-2xl font-bold">Invite Codes</h2>
+          <div className="rounded-2xl bg-zinc-900 p-6">
+  <h2 className="text-2xl font-bold">
+    Invite Codes
+  </h2>
+
+  <p className="text-zinc-400 mt-2">
+    Generate signup codes
+  </p>
+
+  <button
+    onClick={generateInviteCode}
+    className="mt-5 rounded-xl bg-purple-600 px-5 py-3 font-semibold hover:bg-purple-700"
+  >
+    Generate Invite Code
+  </button>
+</div>
           <p className="text-zinc-400 mt-2">
             Generate signup codes
           </p>
